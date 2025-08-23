@@ -7472,6 +7472,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Add IP detection endpoint
+  app.get("/api/current-ip", async (req, res) => {
+    try {
+      const response = await fetch("http://checkip.amazonaws.com");
+      const ip = await response.text();
+      res.json({ 
+        ip: ip.trim(),
+        headers: req.headers,
+        connection: req.connection?.remoteAddress 
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get IP" });
+    }
+  });
+
   const httpServer = createServer(app);
   // Delete all imported transaction data from external database
   app.delete(

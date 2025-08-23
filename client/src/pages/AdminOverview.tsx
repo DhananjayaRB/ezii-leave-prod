@@ -90,10 +90,10 @@ export default function AdminOverview() {
       }
 
       console.log(
-        "🌐 [AdminOverview External Holidays] Calling API: https://qa-api.resolveindia.com/organization/holidays",
+        "🌐 [AdminOverview External Holidays] Calling API: https://apiv1.resolvepay.in/organization/holidays",
       );
       const response = await fetch(
-        "https://qa-api.resolveindia.com/organization/holidays",
+        "https://apiv1.resolvepay.in/organization/holidays",
         {
           method: "GET",
           headers: {

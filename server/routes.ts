@@ -343,7 +343,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           if (jwtToken) {
             const response = await fetch(
-              "https://qa-api.resolveindia.com/worker-master-leave",
+              "https://apiv1.resolvepay.in/worker-master-leave",
               {
                 headers: { Authorization: `Bearer ${jwtToken}` },
               },
@@ -485,7 +485,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       const response = await fetch(
-        "https://qa-api.resolveindia.com/reports/worker-master-leave",
+        "https://apiv1.resolvepay.in/reports/worker-master-leave",
         {
           method: "POST",
           headers: {
@@ -971,7 +971,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 };
 
                 const response = await fetch(
-                  "https://qa-api.resolveindia.com/reports/worker-master-leave",
+                  "https://apiv1.resolvepay.in/reports/worker-master-leave",
                   {
                     method: "POST",
                     headers: {
@@ -1646,7 +1646,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           "[TEST IMPORT] Calling external API for employee mapping...",
         );
         const response = await fetch(
-          "https://qa-api.resolveindia.com/reports/worker-master-leave",
+          "https://apiv1.resolvepay.in/reports/worker-master-leave",
           {
             method: "POST",
             headers: {
@@ -4336,7 +4336,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             console.log("[ExcelValidation] API Payload:", payload);
 
             const response = await fetch(
-              "https://qa-api.resolveindia.com/reports/worker-master-leave",
+              "https://apiv1.resolvepay.in/reports/worker-master-leave",
               {
                 method: "POST",
                 headers: {
@@ -5074,7 +5074,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           try {
             const response = await fetch(
-              "https://qa-api.resolveindia.com/reports/worker-master-leave",
+              "https://apiv1.resolvepay.in/reports/worker-master-leave",
               {
                 method: "POST",
                 headers: {
@@ -6145,7 +6145,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let allEmployees = [];
       try {
         const response = await fetch(
-          "https://qa-api.resolveindia.com/worker-master-leave",
+          "https://apiv1.resolvepay.in/worker-master-leave",
           {
             headers: {
               Authorization: `Bearer ${req.headers.authorization?.replace("Bearer ", "") || ""}`,

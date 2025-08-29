@@ -22,7 +22,7 @@
                 console.log('JWT Token found:', jwtToken ? 'Yes' : 'No');
                 console.log('JWT Token length:', jwtToken ? jwtToken.length : 0);
                 
-                const response = await fetch('https://qa-api.resolveindia.com/organization/get-work-patterns', {
+                const response = await fetch('https://apiv1.resolvepay.in/organization/get-work-patterns', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${jwtToken}`,

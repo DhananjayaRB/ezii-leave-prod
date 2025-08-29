@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Opening Balance Issue</title>
+</head>
+<body>
+    <h1>Debug Opening Balance for Sanjay</h1>
+    <div id="debug-info"></div>
+    <script>
+        // Set context to Sanjay
+        localStorage.setItem('user_id', '241');
+        localStorage.setItem('org_id', '13');
+        
+        async function debugOpeningBalance() {
+            const debugDiv = document.getElementById('debug-info');
+            
+            try {
+                // Fetch transactions for user 241
+                const transactionsRes = await fetch('/api/leave-balance-transactions/241', {
+                    headers: { 'X-Org-Id': '13' }
+                });
+                const transactions = await transactionsRes.json();
+                
+                // Fetch variants
+                const variantsRes = await fetch('/api/leave-variants', {
+                    headers: { 'X-Org-Id': '13' }
+                });
+                const variants = await variantsRes.json();
+                
+                // Fetch assignments for user 241
+                const assignmentsRes = await fetch('/api/employee-assignments', {
+                    headers: { 'X-Org-Id': '13' }
+                });
+                const allAssignments = await assignmentsRes.json();
+                const userAssignments = allAssignments.filter(a => a.userId === '241');
+                
+                // Find opening balance transaction
+                const openingBalanceTransaction = transactions.find(t => 
+                    t.description && t.description.includes('Opening balance')
+                );
+                
+                // Find Earned Leave variants
+                const earnedLeaveVariants = variants.filter(v => v.leaveTypeName === 'Earned Leave');
+                
+                // Find user's Earned Leave assignment
+                const userEarnedLeaveAssignment = userAssignments.find(a => {
+                    const variant = variants.find(v => v.id === a.leaveVariantId);
+                    return variant && variant.leaveTypeName === 'Earned Leave';
+                });
+                
+                const debugInfo = {
+                    userId: '241',
+                    openingBalanceTransaction: openingBalanceTransaction ? {
+                        id: openingBalanceTransaction.id,
+                        variantId: openingBalanceTransaction.leaveVariantId,
+                        amount: openingBalanceTransaction.amount,
+                        description: openingBalanceTransaction.description
+                    } : null,
+                    earnedLeaveVariants: earnedLeaveVariants.map(v => ({
+                        id: v.id,
+                        name: v.leaveTypeName,
+                        leaveTypeId: v.leaveTypeId
+                    })),
+                    userEarnedLeaveAssignment: userEarnedLeaveAssignment ? {
+                        variantId: userEarnedLeaveAssignment.leaveVariantId,
+                        variant: variants.find(v => v.id === userEarnedLeaveAssignment.leaveVariantId)
+                    } : null,
+                    mismatch: openingBalanceTransaction && userEarnedLeaveAssignment ? 
+                        openingBalanceTransaction.leaveVariantId !== userEarnedLeaveAssignment.leaveVariantId : false
+                };
+                
+                debugDiv.innerHTML = '<pre>' + JSON.stringify(debugInfo, null, 2) + '</pre>';
+                console.log('🔍 [DEBUG] Opening Balance Analysis:', debugInfo);
+                
+            } catch (error) {
+                debugDiv.innerHTML = 'Error: ' + error.message;
+                console.error('Debug error:', error);
+            }
+        }
+        
+        // Run debug after a delay
+        setTimeout(debugOpeningBalance, 1000);
+    </script>
+</body>
+</html>

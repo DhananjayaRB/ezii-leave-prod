@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug HR Report Location/Department Issue</title>
+</head>
+<body>
+    <h1>Debug HR Report Location/Department Issue</h1>
+    <p>This script will help debug why Location and Department columns show N/A</p>
+    
+    <button onclick="setupAndTest()">Setup JWT Token and Test</button>
+    <button onclick="checkCurrentState()">Check Current State</button>
+    <button onclick="testExternalAPI()">Test External API Directly</button>
+    
+    <div id="output"></div>
+    
+    <script>
+    function log(message) {
+        const output = document.getElementById('output');
+        output.innerHTML += '<div>' + message + '</div>';
+        console.log(message);
+    }
+    
+    function setupAndTest() {
+        log('Setting up environment for org_id 13...');
+        
+        // Set up the environment like the working setup
+        localStorage.setItem('org_id', '13');
+        localStorage.setItem('user_id', '225');
+        localStorage.setItem('role', 'admin');
+        
+        // Set JWT token (this might need to be updated with current token)
+        const jwtToken = localStorage.getItem('jwt_token');
+        if (!jwtToken) {
+            log('WARNING: No JWT token found. You need to log in first to get a JWT token.');
+            log('Please go to the main app, log in, then come back here.');
+            return;
+        }
+        
+        log('JWT token exists: ' + !!jwtToken);
+        log('JWT token length: ' + (jwtToken ? jwtToken.length : 0));
+        
+        // Navigate to HR report
+        setTimeout(() => {
+            window.location.href = '/reports/admin-reports/leave-balances';
+        }, 1000);
+    }
+    
+    function checkCurrentState() {
+        log('=== Current State ===');
+        log('org_id: ' + localStorage.getItem('org_id'));
+        log('user_id: ' + localStorage.getItem('user_id'));
+        log('role: ' + localStorage.getItem('role'));
+        log('jwt_token exists: ' + !!localStorage.getItem('jwt_token'));
+        log('jwt_token length: ' + (localStorage.getItem('jwt_token') || '').length);
+        
+        // List all localStorage keys
+        const keys = Object.keys(localStorage);
+        log('All localStorage keys: ' + keys.join(', '));
+    }
+    
+    async function testExternalAPI() {
+        log('=== Testing External API ===');
+        
+        const token = localStorage.getItem('jwt_token');
+        if (!token) {
+            log('ERROR: No JWT token available');
+            return;
+        }
+        
+        const payload = {
+            userBlocks: [1, 3, 4],
+            userWise: 0,
+            workerType: 0,
+            attribute: 0,
+            subAttributeId: 0
+        };
+        
+        try {
+            log('Making request to external API...');
+            const response = await fetch('https://apiv1.resolvepay.in/reports/worker-master-leave', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(payload)
+            });
+            
+            log('Response status: ' + response.status);
+            
+            if (response.ok) {
+                const data = await response.json();
+                log('Response data length: ' + (data.data?.data?.length || 0));
+                
+                // Check first employee for type_id_0 and type_id_1
+                if (data.data?.data?.length > 0) {
+                    const firstEmployee = data.data.data[0];
+                    log('First employee data:');
+                    log('- employee_number: ' + firstEmployee.employee_number);
+                    log('- user_name: ' + firstEmployee.user_name);
+                    log('- type_id_0 (Location): ' + firstEmployee.type_id_0);
+                    log('- type_id_1 (Department): ' + firstEmployee.type_id_1);
+                    
+                    // Look for employee 015
+                    const emp015 = data.data.data.find(emp => emp.employee_number === '015');
+                    if (emp015) {
+                        log('Found employee 015:');
+                        log('- type_id_0: ' + emp015.type_id_0);
+                        log('- type_id_1: ' + emp015.type_id_1);
+                    } else {
+                        log('Employee 015 not found in external data');
+                    }
+                }
+            } else {
+                const errorText = await response.text();
+                log('ERROR: ' + errorText);
+            }
+        } catch (error) {
+            log('ERROR: ' + error.message);
+        }
+    }
+    </script>
+</body>
+</html>

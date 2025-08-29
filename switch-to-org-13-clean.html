@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Switch to Org 13 (Clean Database)</title>
+</head>
+<body>
+    <h1>Switch to Org 13 - Clean Database</h1>
+    <p>Click the button to switch to org_id 13 where all data has been deleted.</p>
+    
+    <button onclick="switchToOrg13()">Switch to Org 13 Clean Database</button>
+    
+    <script>
+    function switchToOrg13() {
+        console.log('Switching to org_id 13 (clean database)...');
+        
+        // Switch to org_id 13 where all data was just deleted
+        localStorage.setItem('org_id', '13');
+        localStorage.setItem('user_id', '225'); // Test user
+        localStorage.setItem('role', 'admin');
+        
+        console.log('Set org_id to 13, user_id to 225, role to admin');
+        
+        // Navigate directly to HR Leave Balance Report
+        window.location.href = '/reports/admin-reports/leave-balances';
+    }
+    </script>
+</body>
+</html>

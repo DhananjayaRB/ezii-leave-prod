@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set JWT Token</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Set JWT Token for Employee API</h1>
+        <p>Paste your JWT token below to enable the new employee API functionality:</p>
+        
+        <div class="form-group">
+            <label for="jwtToken">JWT Token:</label>
+            <textarea id="jwtToken" placeholder="Paste your JWT token here..."></textarea>
+        </div>
+        
+        <button onclick="setJwtToken()">Set JWT Token</button>
+        
+        <div id="status"></div>
+        
+        <h3>Current Status:</h3>
+        <div id="currentStatus" class="status info">
+            <strong>JWT Token:</strong> <span id="tokenStatus">Not set</span><br>
+            <strong>Employee API:</strong> <span id="apiStatus">Will use fallback data</span>
+        </div>
+    </div>
+
+    <script>
+        function setJwtToken() {
+            const tokenInput = document.getElementById('jwtToken');
+            const token = tokenInput.value.trim();
+            
+            if (!token) {
+                showStatus('Please enter a JWT token', 'error');
+                return;
+            }
+            
+            try {
+                // Store the JWT token in localStorage
+                localStorage.setItem('jwt_token', token);
+                
+                showStatus('JWT token has been set successfully!', 'success');
+                updateStatus();
+                
+                // Clear the input
+                tokenInput.value = '';
+            } catch (error) {
+                showStatus('Error setting JWT token: ' + error.message, 'error');
+            }
+        }
+        
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = 'status ' + (type === 'success' ? 'success' : 'error');
+            statusDiv.innerHTML = message;
+        }
+        
+        function updateStatus() {
+            const token = localStorage.getItem('jwt_token');
+            const tokenStatus = document.getElementById('tokenStatus');
+            const apiStatus = document.getElementById('apiStatus');
+            
+            if (token) {
+                tokenStatus.textContent = 'Set (length: ' + token.length + ')';
+                tokenStatus.style.color = 'green';
+                apiStatus.textContent = 'Ready to use new API endpoint';
+                apiStatus.style.color = 'green';
+            } else {
+                tokenStatus.textContent = 'Not set';
+                tokenStatus.style.color = 'red';
+                apiStatus.textContent = 'Will use fallback data';
+                apiStatus.style.color = 'orange';
+            }
+        }
+        
+        function clearToken() {
+            localStorage.removeItem('jwt_token');
+            showStatus('JWT token has been cleared', 'success');
+            updateStatus();
+        }
+        
+        // Initialize status on page load
+        updateStatus();
+    </script>
+    
+    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
+        <button onclick="clearToken()" style="background-color: #dc3545;">Clear JWT Token</button>
+        <p style="font-size: 12px; color: #666; margin-top: 10px;">
+            <strong>Note:</strong> Once the JWT token is set, the Employee Assignment feature will use the new API endpoint 
+            (<code>https://apiv1.resolvepay.in/organization/employees</code>) to fetch real employee data instead of fallback samples.
+        </p>
+    </div>
+</body>
+</html>

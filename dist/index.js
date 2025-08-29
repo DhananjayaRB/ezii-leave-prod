@@ -92,17 +92,8 @@ var init_schema = __esm({
       },
       (table) => [index("IDX_session_expire").on(table.expire)]
     );
-    userRoleEnum = pgEnum("user_role", [
-      "admin",
-      "manager",
-      "employee",
-      "hr"
-    ]);
-    setupStatusEnum = pgEnum("setup_status", [
-      "pending",
-      "in_progress",
-      "completed"
-    ]);
+    userRoleEnum = pgEnum("user_role", ["admin", "manager", "employee", "hr"]);
+    setupStatusEnum = pgEnum("setup_status", ["pending", "in_progress", "completed"]);
     users = pgTable("users", {
       id: varchar("id").primaryKey().notNull(),
       email: varchar("email").unique(),
@@ -128,17 +119,18 @@ var init_schema = __esm({
     });
     leaveTypes = pgTable("leave_types", {
       id: serial("id").primaryKey(),
-      name: varchar("name").notNull(),
+      name: text("name").notNull(),
+      maxDays: integer("max_days"),
+      color: text("color"),
       description: text("description"),
-      icon: varchar("icon"),
-      color: varchar("color"),
+      isActive: boolean("is_active").default(true),
+      createdAt: timestamp("created_at").defaultNow(),
+      updatedAt: timestamp("updated_at").defaultNow(),
+      icon: text("icon"),
       annualAllowance: integer("annual_allowance"),
       carryForward: boolean("carry_forward").default(false),
       negativeLeaveBalance: integer("negative_leave_balance").default(0),
-      isActive: boolean("is_active").default(true),
-      orgId: integer("org_id").default(60),
-      createdAt: timestamp("created_at").defaultNow(),
-      updatedAt: timestamp("updated_at").defaultNow()
+      orgId: integer("org_id").default(60)
     });
     roles = pgTable("roles", {
       id: serial("id").primaryKey(),
@@ -183,9 +175,7 @@ var init_schema = __esm({
       advanceNoticeRequired: boolean("advance_notice_required").default(true),
       advanceNoticeDays: integer("advance_notice_days").default(1),
       minimumLeaveUnit: jsonb("minimum_leave_unit").default('["Full Day"]'),
-      compensationOptions: jsonb("compensation_options").default(
-        '["En-cashment", "Convert to leaves"]'
-      ),
+      compensationOptions: jsonb("compensation_options").default('["En-cashment", "Convert to leaves"]'),
       orgId: integer("org_id").default(60),
       createdAt: timestamp("created_at").defaultNow(),
       updatedAt: timestamp("updated_at").defaultNow()
@@ -269,36 +259,20 @@ var init_schema = __esm({
       minDaysRequired: integer("min_days_required").notNull().default(0),
       maxInstances: integer("max_instances").notNull().default(0),
       maxInstancesPeriod: varchar("max_instances_period").notNull().default("year"),
-      allowLeavesBeforeWeekend: boolean("allow_leaves_before_weekend").default(
-        false
-      ),
-      allowLeavesBeforeHoliday: boolean("allow_leaves_before_holiday").default(
-        false
-      ),
+      allowLeavesBeforeWeekend: boolean("allow_leaves_before_weekend").default(false),
+      allowLeavesBeforeHoliday: boolean("allow_leaves_before_holiday").default(false),
       allowClubbing: boolean("allow_clubbing").default(false),
       supportingDocuments: boolean("supporting_documents").default(false),
       supportingDocumentsText: text("supporting_documents_text"),
       allowDuringNotice: boolean("allow_during_notice").default(false),
       requiresWorkflow: boolean("requires_workflow").default(true),
-      leaveBalanceDeductionBefore: boolean(
-        "leave_balance_deduction_before"
-      ).default(false),
-      leaveBalanceDeductionAfter: boolean("leave_balance_deduction_after").default(
-        false
-      ),
-      leaveBalanceDeductionNotAllowed: boolean(
-        "leave_balance_deduction_not_allowed"
-      ).default(false),
+      leaveBalanceDeductionBefore: boolean("leave_balance_deduction_before").default(false),
+      leaveBalanceDeductionAfter: boolean("leave_balance_deduction_after").default(false),
+      leaveBalanceDeductionNotAllowed: boolean("leave_balance_deduction_not_allowed").default(false),
       gracePeriod: integer("grace_period").notNull().default(0),
-      allowWithdrawalBeforeApproval: boolean(
-        "allow_withdrawal_before_approval"
-      ).default(false),
-      allowWithdrawalAfterApproval: boolean(
-        "allow_withdrawal_after_approval"
-      ).default(false),
-      allowWithdrawalNotAllowed: boolean("allow_withdrawal_not_allowed").default(
-        true
-      ),
+      allowWithdrawalBeforeApproval: boolean("allow_withdrawal_before_approval").default(false),
+      allowWithdrawalAfterApproval: boolean("allow_withdrawal_after_approval").default(false),
+      allowWithdrawalNotAllowed: boolean("allow_withdrawal_not_allowed").default(true),
       negativeLeaveBalance: integer("negative_leave_balance").notNull().default(0),
       carryForwardLimit: integer("carry_forward_limit").notNull().default(0),
       carryForwardPeriod: varchar("carry_forward_period").notNull().default("year"),
@@ -306,9 +280,7 @@ var init_schema = __esm({
       encashmentCalculation: varchar("encashment_calculation"),
       maxEncashmentDays: integer("max_encashment_days"),
       encashmentTiming: varchar("encashment_timing"),
-      allowApplicationsOnBehalf: boolean("allow_applications_on_behalf").default(
-        false
-      ),
+      allowApplicationsOnBehalf: boolean("allow_applications_on_behalf").default(false),
       showAvailedLeaves: boolean("show_availed_leaves").default(false),
       showBalanceLeaves: boolean("show_balance_leaves").default(false),
       maximumBalance: integer("maximum_balance").notNull().default(0),
@@ -323,18 +295,11 @@ var init_schema = __esm({
       enabled: boolean("enabled").default(true),
       // Comp-off units configuration
       allowFullDay: boolean("allow_full_day").default(false),
-      fullDayHours: numeric("full_day_hours", { precision: 4, scale: 2 }).default(
-        "0"
-      ),
+      fullDayHours: numeric("full_day_hours", { precision: 4, scale: 2 }).default("0"),
       allowHalfDay: boolean("allow_half_day").default(false),
-      halfDayHours: numeric("half_day_hours", { precision: 4, scale: 2 }).default(
-        "0"
-      ),
+      halfDayHours: numeric("half_day_hours", { precision: 4, scale: 2 }).default("0"),
       allowQuarterDay: boolean("allow_quarter_day").default(false),
-      quarterDayHours: numeric("quarter_day_hours", {
-        precision: 4,
-        scale: 2
-      }).default("0"),
+      quarterDayHours: numeric("quarter_day_hours", { precision: 4, scale: 2 }).default("0"),
       // Eligibility criteria
       maxApplications: integer("max_applications").default(1),
       maxApplicationsPeriod: varchar("max_applications_period").default("Month"),
@@ -348,9 +313,7 @@ var init_schema = __esm({
       // Working days
       allowNonWorkingDays: boolean("allow_non_working_days").default(false),
       // Withdrawal settings
-      withdrawalBeforeApproval: boolean("withdrawal_before_approval").default(
-        false
-      ),
+      withdrawalBeforeApproval: boolean("withdrawal_before_approval").default(false),
       withdrawalAfterApproval: boolean("withdrawal_after_approval").default(false),
       withdrawalNotAllowed: boolean("withdrawal_not_allowed").default(true),
       // Notice period
@@ -368,10 +331,7 @@ var init_schema = __esm({
       encashmentBasedOn: varchar("encashment_based_on"),
       // "basic_pay", "basic_plus_dearness_allowance", "gross_pay"
       maxEncashmentDays: integer("max_encashment_days").default(0),
-      maxEncashmentHours: numeric("max_encashment_hours", {
-        precision: 4,
-        scale: 2
-      }).default("0"),
+      maxEncashmentHours: numeric("max_encashment_hours", { precision: 4, scale: 2 }).default("0"),
       convertibleLeaveTypes: jsonb("convertible_leave_types"),
       // Array of leave type IDs
       // Legacy fields for backward compatibility
@@ -391,9 +351,7 @@ var init_schema = __esm({
       workflowRequired: boolean("workflow_required").default(false),
       noticePeriodAllowed: boolean("notice_period_allowed").default(true),
       documentsRequired: boolean("documents_required").default(false),
-      applicableAfterType: varchar("applicable_after_type").default(
-        "date_of_joining"
-      ),
+      applicableAfterType: varchar("applicable_after_type").default("date_of_joining"),
       applicableAfter: integer("applicable_after").default(0),
       // days
       approvalDays: integer("approval_days").default(0),
@@ -521,13 +479,11 @@ var init_schema = __esm({
       createdAt: true,
       updatedAt: true
     });
-    insertCompOffConfigSchema = createInsertSchema(compOffConfig).omit(
-      {
-        id: true,
-        createdAt: true,
-        updatedAt: true
-      }
-    );
+    insertCompOffConfigSchema = createInsertSchema(compOffConfig).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
     insertPTOConfigSchema = createInsertSchema(ptoConfig).omit({
       id: true,
       createdAt: true,
@@ -585,49 +541,34 @@ var init_schema = __esm({
       createdAt: true,
       updatedAt: true
     }).extend({
-      workedDate: z.union([
-        z.date(),
-        z.string().transform((str) => new Date(str))
-      ]),
+      workedDate: z.union([z.date(), z.string().transform((str) => new Date(str))]),
       compensateWith: z.union([z.date(), z.string().transform((str) => new Date(str)), z.null()]).optional()
     });
-    insertEmployeeAssignmentSchema = createInsertSchema(
-      employeeAssignments
-    ).omit({
+    insertEmployeeAssignmentSchema = createInsertSchema(employeeAssignments).omit({
       id: true,
       createdAt: true,
       updatedAt: true
     });
-    employeeLeaveBalances = pgTable(
-      "employee_leave_balances",
-      {
-        id: serial("id").primaryKey(),
-        userId: varchar("user_id").notNull(),
-        leaveVariantId: integer("leave_variant_id").notNull(),
-        totalEntitlement: numeric("total_entitlement", {
-          precision: 10,
-          scale: 2
-        }).notNull(),
-        // Annual entitlement in days (supports decimals)
-        currentBalance: numeric("current_balance", {
-          precision: 10,
-          scale: 2
-        }).notNull(),
-        // Current available balance in days (supports decimals)
-        usedBalance: numeric("used_balance", { precision: 10, scale: 2 }).default("0").notNull(),
-        // Used balance in days (supports decimals)
-        carryForward: numeric("carry_forward", { precision: 10, scale: 2 }).default("0").notNull(),
-        // Carried forward from previous period
-        year: integer("year").notNull(),
-        // Calendar year this balance is for
-        orgId: integer("org_id").default(60),
-        createdAt: timestamp("created_at").defaultNow(),
-        updatedAt: timestamp("updated_at").defaultNow()
-      },
-      (table) => [
-        unique().on(table.userId, table.leaveVariantId, table.year, table.orgId)
-      ]
-    );
+    employeeLeaveBalances = pgTable("employee_leave_balances", {
+      id: serial("id").primaryKey(),
+      userId: varchar("user_id").notNull(),
+      leaveVariantId: integer("leave_variant_id").notNull(),
+      totalEntitlement: numeric("total_entitlement", { precision: 10, scale: 2 }).notNull(),
+      // Annual entitlement in days (supports decimals)
+      currentBalance: numeric("current_balance", { precision: 10, scale: 2 }).notNull(),
+      // Current available balance in days (supports decimals)
+      usedBalance: numeric("used_balance", { precision: 10, scale: 2 }).default("0").notNull(),
+      // Used balance in days (supports decimals)
+      carryForward: numeric("carry_forward", { precision: 10, scale: 2 }).default("0").notNull(),
+      // Carried forward from previous period
+      year: integer("year").notNull(),
+      // Calendar year this balance is for
+      orgId: integer("org_id").default(60),
+      createdAt: timestamp("created_at").defaultNow(),
+      updatedAt: timestamp("updated_at").defaultNow()
+    }, (table) => [
+      unique().on(table.userId, table.leaveVariantId, table.year, table.orgId)
+    ]);
     leaveBalanceTransactions2 = pgTable("leave_balance_transactions", {
       id: serial("id").primaryKey(),
       userId: varchar("user_id").notNull(),
@@ -646,12 +587,8 @@ var init_schema = __esm({
       orgId: integer("org_id").default(60),
       createdAt: timestamp("created_at").defaultNow()
     });
-    insertEmployeeLeaveBalanceSchema = createInsertSchema(
-      employeeLeaveBalances
-    );
-    insertLeaveBalanceTransactionSchema = createInsertSchema(
-      leaveBalanceTransactions2
-    );
+    insertEmployeeLeaveBalanceSchema = createInsertSchema(employeeLeaveBalances);
+    insertLeaveBalanceTransactionSchema = createInsertSchema(leaveBalanceTransactions2);
     blackoutPeriods = pgTable("blackout_periods", {
       id: serial("id").primaryKey(),
       title: varchar("title").notNull(),
@@ -667,37 +604,29 @@ var init_schema = __esm({
       createdAt: timestamp("created_at").defaultNow(),
       updatedAt: timestamp("updated_at").defaultNow()
     });
-    insertBlackoutPeriodSchema = createInsertSchema(
-      blackoutPeriods
-    ).omit({
+    insertBlackoutPeriodSchema = createInsertSchema(blackoutPeriods).omit({
       id: true,
       createdAt: true,
       updatedAt: true
     });
-    collaborativeLeaveSettingsEnhanced = pgTable(
-      "collaborative_leave_settings",
-      {
-        id: serial("id").primaryKey(),
-        enabled: boolean("enabled").default(false).notNull(),
-        maxTasksPerLeave: integer("max_tasks_per_leave").default(5),
-        requireManagerApproval: boolean("require_manager_approval").default(false),
-        autoReminderDays: integer("auto_reminder_days").default(1),
-        // Days before expected support date to send reminder
-        defaultNotificationMethod: varchar("default_notification_method").default(
-          "email"
-        ),
-        enableWhatsApp: boolean("enable_whatsapp").default(false),
-        enableEmailNotifications: boolean("enable_email_notifications").default(
-          true
-        ),
-        closureReportRequired: boolean("closure_report_required").default(true),
-        managerReviewRequired: boolean("manager_review_required").default(true),
-        orgId: integer("org_id").default(60),
-        createdAt: timestamp("created_at").defaultNow(),
-        updatedAt: timestamp("updated_at").defaultNow()
-      },
-      (table) => [unique().on(table.orgId)]
-    );
+    collaborativeLeaveSettingsEnhanced = pgTable("collaborative_leave_settings", {
+      id: serial("id").primaryKey(),
+      enabled: boolean("enabled").default(false).notNull(),
+      maxTasksPerLeave: integer("max_tasks_per_leave").default(5),
+      requireManagerApproval: boolean("require_manager_approval").default(false),
+      autoReminderDays: integer("auto_reminder_days").default(1),
+      // Days before expected support date to send reminder
+      defaultNotificationMethod: varchar("default_notification_method").default("email"),
+      enableWhatsApp: boolean("enable_whatsapp").default(false),
+      enableEmailNotifications: boolean("enable_email_notifications").default(true),
+      closureReportRequired: boolean("closure_report_required").default(true),
+      managerReviewRequired: boolean("manager_review_required").default(true),
+      orgId: integer("org_id").default(60),
+      createdAt: timestamp("created_at").defaultNow(),
+      updatedAt: timestamp("updated_at").defaultNow()
+    }, (table) => [
+      unique().on(table.orgId)
+    ]);
     leaveTaskAssigneesEnhanced = pgTable("leave_task_assignees", {
       id: serial("id").primaryKey(),
       leaveRequestId: integer("leave_request_id").notNull(),
@@ -731,26 +660,24 @@ var init_schema = __esm({
       createdAt: timestamp("created_at").defaultNow(),
       updatedAt: timestamp("updated_at").defaultNow()
     });
-    leaveClosureReportsEnhanced = pgTable(
-      "leave_closure_reports",
-      {
-        id: serial("id").primaryKey(),
-        leaveRequestId: integer("leave_request_id").notNull(),
-        employeeComments: text("employee_comments"),
-        // Employee's overall comments
-        taskReviews: jsonb("task_reviews"),
-        // JSON array of task-specific reviews
-        managerRating: varchar("manager_rating"),
-        // 'responsible', 'ok', 'needs_improvement'
-        managerComments: text("manager_comments"),
-        managerReviewedAt: timestamp("manager_reviewed_at"),
-        submittedAt: timestamp("submitted_at").defaultNow(),
-        orgId: integer("org_id").default(60),
-        createdAt: timestamp("created_at").defaultNow(),
-        updatedAt: timestamp("updated_at").defaultNow()
-      },
-      (table) => [unique().on(table.leaveRequestId, table.orgId)]
-    );
+    leaveClosureReportsEnhanced = pgTable("leave_closure_reports", {
+      id: serial("id").primaryKey(),
+      leaveRequestId: integer("leave_request_id").notNull(),
+      employeeComments: text("employee_comments"),
+      // Employee's overall comments
+      taskReviews: jsonb("task_reviews"),
+      // JSON array of task-specific reviews
+      managerRating: varchar("manager_rating"),
+      // 'responsible', 'ok', 'needs_improvement'
+      managerComments: text("manager_comments"),
+      managerReviewedAt: timestamp("manager_reviewed_at"),
+      submittedAt: timestamp("submitted_at").defaultNow(),
+      orgId: integer("org_id").default(60),
+      createdAt: timestamp("created_at").defaultNow(),
+      updatedAt: timestamp("updated_at").defaultNow()
+    }, (table) => [
+      unique().on(table.leaveRequestId, table.orgId)
+    ]);
     performanceRecordsEnhanced = pgTable("performance_records", {
       id: serial("id").primaryKey(),
       userId: varchar("user_id").notNull(),
@@ -768,36 +695,27 @@ var init_schema = __esm({
       orgId: integer("org_id").default(60),
       createdAt: timestamp("created_at").defaultNow()
     });
-    collaborativeLeaveAuditLogEnhanced = pgTable(
-      "collaborative_leave_audit_log",
-      {
-        id: serial("id").primaryKey(),
-        userId: varchar("user_id").notNull(),
-        // Who performed the action
-        actionType: varchar("action_type").notNull(),
-        // 'task_created', 'notification_sent', 'task_accepted', 'status_updated', etc.
-        relatedEntityType: varchar("related_entity_type").notNull(),
-        // 'leave_request', 'task_assignment', 'closure_report'
-        relatedEntityId: integer("related_entity_id").notNull(),
-        oldValue: text("old_value"),
-        // Previous value (JSON)
-        newValue: text("new_value"),
-        // New value (JSON)
-        details: text("details"),
-        // Additional context
-        timestamp: timestamp("timestamp").defaultNow(),
-        orgId: integer("org_id").default(60)
-      }
-    );
-    insertLeaveTaskAssigneeEnhancedSchema = createInsertSchema(
-      leaveTaskAssigneesEnhanced
-    );
-    insertLeaveClosureReportEnhancedSchema = createInsertSchema(
-      leaveClosureReportsEnhanced
-    );
-    insertPerformanceRecordEnhancedSchema = createInsertSchema(
-      performanceRecordsEnhanced
-    );
+    collaborativeLeaveAuditLogEnhanced = pgTable("collaborative_leave_audit_log", {
+      id: serial("id").primaryKey(),
+      userId: varchar("user_id").notNull(),
+      // Who performed the action
+      actionType: varchar("action_type").notNull(),
+      // 'task_created', 'notification_sent', 'task_accepted', 'status_updated', etc.
+      relatedEntityType: varchar("related_entity_type").notNull(),
+      // 'leave_request', 'task_assignment', 'closure_report'
+      relatedEntityId: integer("related_entity_id").notNull(),
+      oldValue: text("old_value"),
+      // Previous value (JSON)
+      newValue: text("new_value"),
+      // New value (JSON)
+      details: text("details"),
+      // Additional context
+      timestamp: timestamp("timestamp").defaultNow(),
+      orgId: integer("org_id").default(60)
+    });
+    insertLeaveTaskAssigneeEnhancedSchema = createInsertSchema(leaveTaskAssigneesEnhanced);
+    insertLeaveClosureReportEnhancedSchema = createInsertSchema(leaveClosureReportsEnhanced);
+    insertPerformanceRecordEnhancedSchema = createInsertSchema(performanceRecordsEnhanced);
     insertCollaborativeLeaveAuditLogEnhancedSchema = createInsertSchema(collaborativeLeaveAuditLogEnhanced);
     insertCollaborativeLeaveSettingsEnhancedSchema = createInsertSchema(collaborativeLeaveSettingsEnhanced);
   }
@@ -816,7 +734,7 @@ var init_db = __esm({
   "server/db.ts"() {
     "use strict";
     init_schema();
-    FORCED_EXTERNAL_URL = "postgres://postgres:resolve%402022@20.204.119.48:5432/ezii-leave";
+    FORCED_EXTERNAL_URL = "postgres://eziileave:RBiz35142@ezii-leave.postgres.database.azure.com:5432/ezii-leave?sslmode=require";
     process.env.DATABASE_URL = FORCED_EXTERNAL_URL;
     console.log(
       "[DATABASE] HARD OVERRIDE - Forcing connection to external database"
@@ -962,23 +880,122 @@ var DatabaseStorage = class {
   }
   // Leave type operations
   async getLeaveTypes(orgId) {
-    const baseQuery = db.select().from(leaveTypes);
-    if (orgId) {
-      return await baseQuery.where(and(eq(leaveTypes.isActive, true), eq(leaveTypes.orgId, orgId))).orderBy(leaveTypes.name);
+    try {
+      console.log("[LeaveTypes] Detecting available columns and using compatible query");
+      console.log(`[LeaveTypes] Fetching leave types for org_id: ${orgId}`);
+      const columnsResult = await db.execute(sql`
+        SELECT column_name 
+        FROM information_schema.columns 
+        WHERE table_name = 'leave_types' 
+        ORDER BY ordinal_position
+      `);
+      const availableColumns = columnsResult.rows.map((row) => row.column_name);
+      console.log("[LeaveTypes] Available columns:", availableColumns);
+      const baseColumns = ["id", "name", "description", "is_active", "created_at", "updated_at"];
+      const optionalColumns = ["max_days", "color", "icon", "annual_allowance", "carry_forward", "negative_leave_balance", "org_id"];
+      const selectColumns = baseColumns.concat(
+        optionalColumns.filter((col) => availableColumns.includes(col))
+      );
+      console.log("[LeaveTypes] Using columns:", selectColumns);
+      const columnsList = selectColumns.join(", ");
+      if (orgId && availableColumns.includes("org_id")) {
+        const result = await db.execute(sql.raw(`
+          SELECT ${columnsList}
+          FROM leave_types 
+          WHERE is_active = true AND org_id = ${orgId}
+          ORDER BY name
+        `));
+        return result.rows;
+      } else {
+        const result = await db.execute(sql.raw(`
+          SELECT ${columnsList}
+          FROM leave_types 
+          WHERE is_active = true 
+          ORDER BY name
+        `));
+        return result.rows;
+      }
+    } catch (error) {
+      console.error("Error in getLeaveTypes with column detection:", error);
+      throw error;
     }
-    return await baseQuery.where(eq(leaveTypes.isActive, true)).orderBy(leaveTypes.name);
   }
   async createLeaveType(leaveType) {
-    const existing = await db.select().from(leaveTypes).where(and(
-      eq(leaveTypes.name, leaveType.name),
-      eq(leaveTypes.orgId, leaveType.orgId || 60),
-      eq(leaveTypes.isActive, true)
-    )).limit(1);
-    if (existing.length > 0) {
-      throw new Error(`A leave type with the name "${leaveType.name}" already exists.`);
+    try {
+      console.log("[CreateLeaveType] Starting createLeaveType method");
+      console.log("[CreateLeaveType] Input data:", leaveType);
+      console.log("[CreateLeaveType] About to query information_schema");
+      const columnsResult = await db.execute(sql`
+        SELECT column_name 
+        FROM information_schema.columns 
+        WHERE table_name = 'leave_types' 
+        ORDER BY ordinal_position
+      `);
+      console.log("[CreateLeaveType] Successfully queried information_schema");
+      const availableColumns = columnsResult.rows.map((row) => row.column_name);
+      console.log("[CreateLeaveType] Available columns:", availableColumns);
+      const orgId = leaveType.orgId || 60;
+      if (availableColumns.includes("org_id")) {
+        const existingResult = await db.execute(sql`
+          SELECT id FROM leave_types 
+          WHERE name = ${leaveType.name} 
+          AND org_id = ${orgId} 
+          AND is_active = true 
+          LIMIT 1
+        `);
+        if (existingResult.rows.length > 0) {
+          throw new Error(`A leave type with the name "${leaveType.name}" already exists.`);
+        }
+      } else {
+        const existingResult = await db.execute(sql`
+          SELECT id FROM leave_types 
+          WHERE name = ${leaveType.name} 
+          AND is_active = true 
+          LIMIT 1
+        `);
+        if (existingResult.rows.length > 0) {
+          throw new Error(`A leave type with the name "${leaveType.name}" already exists.`);
+        }
+      }
+      const insertData = {};
+      const columnMappings = {
+        name: leaveType.name,
+        description: leaveType.description,
+        icon: leaveType.icon,
+        color: leaveType.color,
+        max_days: leaveType.maxDays,
+        annual_allowance: leaveType.annualAllowance,
+        carry_forward: leaveType.carryForward,
+        negative_leave_balance: leaveType.negativeLeaveBalance,
+        is_active: true,
+        org_id: orgId,
+        created_at: /* @__PURE__ */ new Date(),
+        updated_at: /* @__PURE__ */ new Date()
+      };
+      console.log("[CreateLeaveType] Processing column mappings...");
+      Object.entries(columnMappings).forEach(([column, value]) => {
+        if (availableColumns.includes(column) && value !== void 0) {
+          console.log(`[CreateLeaveType] Including column ${column} with value:`, value);
+          insertData[column] = value;
+        }
+      });
+      console.log("[CreateLeaveType] Insert data:", insertData);
+      console.log("[CreateLeaveType] About to execute simple raw SQL");
+      const query = `
+        INSERT INTO leave_types (name, description, icon, color, is_active, org_id, created_at, updated_at) 
+        VALUES ('${insertData.name}', '${insertData.description}', '${insertData.icon}', '${insertData.color}', ${insertData.is_active}, ${insertData.org_id}, '${insertData.created_at.toISOString()}', '${insertData.updated_at.toISOString()}') 
+        RETURNING *
+      `;
+      console.log("[CreateLeaveType] Raw SQL query:", query);
+      const result = await db.execute(sql.raw(query));
+      console.log("[CreateLeaveType] Successfully executed INSERT");
+      const newLeaveType = result.rows[0];
+      console.log("[CreateLeaveType] Created leave type:", newLeaveType);
+      return newLeaveType;
+    } catch (error) {
+      console.error("Error creating leave type:", error);
+      throw error;
     }
-    const [newLeaveType] = await db.insert(leaveTypes).values(leaveType).returning();
-    return newLeaveType;
   }
   async updateLeaveType(id, leaveType) {
     const [updatedLeaveType] = await db.update(leaveTypes).set({ ...leaveType, updatedAt: /* @__PURE__ */ new Date() }).where(eq(leaveTypes.id, id)).returning();
@@ -1573,13 +1590,15 @@ var DatabaseStorage = class {
     );
     return assignments;
   }
-  async getCompOffEmployeeAssignments(variantId) {
-    const assignments = await db.select().from(employeeAssignments).where(
-      and(
-        eq(employeeAssignments.leaveVariantId, variantId),
-        eq(employeeAssignments.assignmentType, "comp_off_variant")
-      )
-    );
+  async getCompOffEmployeeAssignments(variantId, orgId) {
+    let whereConditions = [
+      eq(employeeAssignments.leaveVariantId, variantId),
+      eq(employeeAssignments.assignmentType, "comp_off_variant")
+    ];
+    if (orgId) {
+      whereConditions.push(eq(employeeAssignments.orgId, orgId));
+    }
+    const assignments = await db.select().from(employeeAssignments).where(and(...whereConditions));
     return assignments;
   }
   async createEmployeeAssignment(assignment) {
@@ -3071,6 +3090,103 @@ async function handleCompOffTransfer(compOffRequest, orgId) {
 }
 async function registerRoutes(app2) {
   await setupAuth(app2);
+  app2.post("/api/debug-create-rh-balance", async (req, res) => {
+    try {
+      const orgId = getOrgIdFromHeaders(req);
+      console.log(`[DebugRH] Creating RH balance for user 193 in org ${orgId}`);
+      const balance = await storage.upsertLeaveBalance({
+        userId: "193",
+        leaveVariantId: 70,
+        totalEntitlement: "12.00",
+        currentBalance: "12.00",
+        usedBalance: "0.00",
+        carryForward: 0,
+        year: 2025,
+        orgId
+      });
+      console.log(`[DebugRH] Created balance:`, balance);
+      const allBalances = await storage.getEmployeeLeaveBalances(
+        "193",
+        2025,
+        orgId
+      );
+      console.log(`[DebugRH] All balances for user 193:`, allBalances);
+      res.json({
+        success: true,
+        message: "RH balance created",
+        createdBalance: balance,
+        allBalances
+      });
+    } catch (error) {
+      console.error("[DebugRH] Error:", error);
+      res.status(500).json({ message: "Failed to create RH balance", error: error.message });
+    }
+  });
+  app2.post("/api/fix-balance-calculations", async (req, res) => {
+    try {
+      const orgId = getOrgIdFromHeaders(req);
+      console.log(`[FixBalances] Starting balance fix for org ${orgId}`);
+      const allBalances = await storage.getAllEmployeeLeaveBalances(
+        void 0,
+        orgId
+      );
+      console.log(
+        `[FixBalances] Found ${allBalances.length} balance records to check`
+      );
+      let fixedCount = 0;
+      let skippedCount = 0;
+      for (const balance of allBalances) {
+        const variants = await storage.getLeaveVariants(orgId);
+        const variant = variants.find((v) => v.id === balance.leaveVariantId);
+        if (!variant) {
+          console.log(
+            `[FixBalances] Skipping balance ${balance.id} - variant not found`
+          );
+          skippedCount++;
+          continue;
+        }
+        const configuredDays = variant.paidDaysInYear;
+        const currentTotalEntitlement = parseFloat(
+          balance.totalEntitlement || "0"
+        );
+        const isMultiplicationBug = Math.abs(currentTotalEntitlement - configuredDays * 2) < 0.1 || // ×2 bug
+        Math.abs(currentTotalEntitlement - configuredDays * 3) < 0.1 || // ×3 bug
+        Math.abs(currentTotalEntitlement - configuredDays * 4) < 0.1;
+        const isIncorrectValue = Math.abs(currentTotalEntitlement - configuredDays) > 0.1;
+        if (isMultiplicationBug || isIncorrectValue) {
+          console.log(
+            `[FixBalances] Fixing balance ${balance.id}: ${currentTotalEntitlement} -> ${configuredDays}`
+          );
+          await storage.updateEmployeeLeaveBalance(balance.id, {
+            totalEntitlement: configuredDays,
+            currentBalance: Math.min(
+              parseFloat(balance.currentBalance || "0"),
+              configuredDays
+            )
+            // Don't exceed entitlement
+          });
+          fixedCount++;
+        } else {
+          console.log(
+            `[FixBalances] Balance ${balance.id} appears correct: configured=${configuredDays}, stored=${currentTotalEntitlement}`
+          );
+          skippedCount++;
+        }
+      }
+      console.log(
+        `[FixBalances] Completed: fixed ${fixedCount}, skipped ${skippedCount}`
+      );
+      res.json({
+        success: true,
+        message: `Fixed ${fixedCount} balance records, skipped ${skippedCount}`,
+        fixedCount,
+        skippedCount
+      });
+    } catch (error) {
+      console.error("[FixBalances] Error:", error);
+      res.status(500).json({ message: "Failed to fix balance calculations" });
+    }
+  });
   app2.get("/api/auth/user", isAuthenticated, async (req, res) => {
     try {
       if (process.env.NODE_ENV === "development") {
@@ -3145,7 +3261,7 @@ async function registerRoutes(app2) {
           const jwtToken = req.headers.authorization?.replace("Bearer ", "") || req.headers["x-jwt-token"] || req.query.token;
           if (jwtToken) {
             const response = await fetch(
-              "https://qa-api.resolveindia.com/worker-master-leave",
+              "https://apiv1.resolvepay.in/worker-master-leave",
               {
                 headers: { Authorization: `Bearer ${jwtToken}` }
               }
@@ -3172,7 +3288,7 @@ async function registerRoutes(app2) {
           );
           if (!variant || !variant.paidDaysInYear) continue;
           let calculatedBalance = 0;
-          const entitlement = variant.paidDaysInYear * 2;
+          const entitlement = variant.paidDaysInYear;
           if (employeeData?.date_of_joining && variant.grantLeaves === "after_earning") {
             const joiningDate = new Date(employeeData.date_of_joining);
             const currentDate = /* @__PURE__ */ new Date();
@@ -3181,12 +3297,21 @@ async function registerRoutes(app2) {
             const monthlyAllocation = entitlement / 12;
             calculatedBalance = Math.floor(monthsWorked * monthlyAllocation);
             console.log(
-              `[FirstLogin] Pro-rata calculation: ${monthsWorked} months worked = ${calculatedBalance / 2} days`
+              `[FirstLogin] Pro-rata calculation: ${monthsWorked} months worked = ${calculatedBalance} days`
+            );
+          } else if (employeeData?.date_of_joining && variant.grantLeaves === "in_advance") {
+            const joiningDate = new Date(employeeData.date_of_joining);
+            const currentDate = /* @__PURE__ */ new Date();
+            const monthsRemaining = 12 - joiningDate.getMonth();
+            const monthlyAllocation = entitlement / 12;
+            calculatedBalance = Math.floor(monthsRemaining * monthlyAllocation);
+            console.log(
+              `[FirstLogin] In advance calculation: ${monthsRemaining} months remaining = ${calculatedBalance} days`
             );
           } else {
             calculatedBalance = entitlement;
             console.log(
-              `[FirstLogin] Full allocation: ${calculatedBalance / 2} days`
+              `[FirstLogin] Full allocation: ${calculatedBalance} days`
             );
           }
           await storage.createEmployeeLeaveBalance({
@@ -3206,11 +3331,11 @@ async function registerRoutes(app2) {
             transactionType: "credit",
             amount: calculatedBalance,
             balanceAfter: calculatedBalance,
-            description: `First login auto-calculation for ${variant.leaveTypeName} (${calculatedBalance / 2} days)`,
+            description: `First login auto-calculation for ${variant.leaveTypeName} (${calculatedBalance} days)`,
             orgId
           });
           console.log(
-            `[FirstLogin] Created ${variant.leaveTypeName} balance: ${calculatedBalance / 2} days`
+            `[FirstLogin] Created ${variant.leaveTypeName} balance: ${calculatedBalance} days`
           );
         }
       }
@@ -3239,7 +3364,7 @@ async function registerRoutes(app2) {
         subAttributeId: 0
       };
       const response = await fetch(
-        "https://qa-api.resolveindia.com/reports/worker-master-leave",
+        "https://apiv1.resolvepay.in/reports/worker-master-leave",
         {
           method: "POST",
           headers: {
@@ -3389,15 +3514,6 @@ async function registerRoutes(app2) {
     try {
       const orgId = req.headers["x-org-id"] || "60";
       const parsedOrgId = parseInt(orgId);
-      const existingLeaveTypes = await storage.getLeaveTypes(parsedOrgId);
-      const requestedName = req.body.name?.trim();
-      if (requestedName && existingLeaveTypes.some(
-        (lt) => lt.name.toLowerCase() === requestedName.toLowerCase()
-      )) {
-        return res.status(400).json({
-          message: `A leave type with the name "${requestedName}" already exists. Please choose a different name.`
-        });
-      }
       const validatedData = insertLeaveTypeSchema.parse({
         ...req.body,
         orgId: parsedOrgId
@@ -3562,7 +3678,11 @@ async function registerRoutes(app2) {
     async (req, res) => {
       try {
         const variantId = parseInt(req.params.variantId);
-        const assignments = await storage.getCompOffEmployeeAssignments(variantId);
+        const orgId = getOrgIdFromHeaders(req);
+        const assignments = await storage.getCompOffEmployeeAssignments(
+          variantId,
+          orgId
+        );
         res.json(assignments);
       } catch (error) {
         console.error("Error fetching comp-off employee assignments:", error);
@@ -3642,7 +3762,7 @@ async function registerRoutes(app2) {
                   subAttributeId: 0
                 };
                 const response = await fetch(
-                  "https://qa-api.resolveindia.com/reports/worker-master-leave",
+                  "https://apiv1.resolvepay.in/reports/worker-master-leave",
                   {
                     method: "POST",
                     headers: {
@@ -4169,7 +4289,7 @@ async function registerRoutes(app2) {
           "[TEST IMPORT] Calling external API for employee mapping..."
         );
         const response = await fetch(
-          "https://qa-api.resolveindia.com/reports/worker-master-leave",
+          "https://apiv1.resolvepay.in/reports/worker-master-leave",
           {
             method: "POST",
             headers: {
@@ -4827,9 +4947,53 @@ async function registerRoutes(app2) {
       baseQuery = sql2`${baseQuery} ORDER BY created_at DESC`;
       const result = await db.execute(baseQuery);
       const requests = result.rows || [];
-      requests.forEach((request) => {
-        request.leaveTypeName = `Leave Type ${request.leaveTypeId}`;
-      });
+      if (requests.length > 0) {
+        try {
+          const leaveTypeIds = [
+            ...new Set(requests.map((r) => r.leaveTypeId))
+          ].filter((id) => id != null);
+          console.log(
+            "\u{1F50D} [Server] Looking up leave type names for IDs:",
+            leaveTypeIds
+          );
+          if (leaveTypeIds.length > 0) {
+            const leaveTypesData = await storage.getLeaveTypes(orgId);
+            const leaveTypeMap = /* @__PURE__ */ new Map();
+            leaveTypesData.forEach((lt) => {
+              leaveTypeMap.set(lt.id, lt.name);
+            });
+            console.log("\u{1F5FA}\uFE0F [Server] Leave type mapping:", {
+              totalLeaveTypes: leaveTypesData.length,
+              mappedIds: Array.from(leaveTypeMap.keys()),
+              sampleNames: Array.from(leaveTypeMap.values()).slice(0, 3)
+            });
+            requests.forEach((request) => {
+              const leaveTypeName = leaveTypeMap.get(request.leaveTypeId);
+              request.leaveTypeName = leaveTypeName || `Unknown Leave Type (${request.leaveTypeId})`;
+            });
+            console.log("\u2705 [Server] Successfully mapped leave type names:", {
+              totalRequests: requests.length,
+              uniqueLeaveTypes: leaveTypeIds.length,
+              sampleMapping: requests.slice(0, 3).map((r) => ({
+                leaveTypeId: r.leaveTypeId,
+                leaveTypeName: r.leaveTypeName
+              }))
+            });
+          } else {
+            console.log(
+              "\u26A0\uFE0F [Server] No valid leave type IDs found in requests"
+            );
+          }
+        } catch (leaveTypeError) {
+          console.error(
+            "\u274C [Server] Error fetching leave type names:",
+            leaveTypeError
+          );
+          requests.forEach((request) => {
+            request.leaveTypeName = `Leave Type ${request.leaveTypeId}`;
+          });
+        }
+      }
       console.log("\u{1F4CA} [Server] Fallback leave requests result:", {
         totalCount: requests.length,
         userIds: requests.map((r) => r.userId),
@@ -5986,12 +6150,21 @@ async function registerRoutes(app2) {
     async (req, res) => {
       try {
         const id = parseInt(req.params.id);
-        const rejectedBy = req.user.claims.sub;
+        const rejectedBy = req.user?.claims?.sub || "system";
         const orgId = getOrgIdFromHeaders(req);
         const { rejectionReason } = req.body;
+        console.log(
+          `Rejecting PTO request ${id} by ${rejectedBy} in org ${orgId}`
+        );
+        console.log("Rejection reason:", rejectionReason);
         const requests = await storage.getPTORequests(orgId);
         const request = requests.find((r) => r.id === id);
+        if (!request) {
+          return res.status(404).json({ message: "PTO request not found" });
+        }
+        console.log(`Found PTO request for rejection:`, request);
         if (request?.workflowId) {
+          console.log("Processing workflow rejection for PTO request");
           const rejectedRequest = await storage.rejectPTOWorkflowRequest(
             id,
             rejectedBy,
@@ -6000,6 +6173,7 @@ async function registerRoutes(app2) {
           );
           res.json(rejectedRequest);
         } else {
+          console.log("Direct rejection for PTO request");
           const rejectedRequest = await storage.updatePTORequest(id, {
             status: "rejected",
             rejectionReason
@@ -6008,7 +6182,11 @@ async function registerRoutes(app2) {
         }
       } catch (error) {
         console.error("Error rejecting PTO request:", error);
-        res.status(400).json({ message: "Failed to reject PTO request" });
+        console.error("Error stack:", error.stack);
+        res.status(400).json({
+          message: "Failed to reject PTO request",
+          error: error.message
+        });
       }
     }
   );
@@ -6220,7 +6398,7 @@ async function registerRoutes(app2) {
             };
             console.log("[ExcelValidation] API Payload:", payload);
             const response = await fetch(
-              "https://qa-api.resolveindia.com/reports/worker-master-leave",
+              "https://apiv1.resolvepay.in/reports/worker-master-leave",
               {
                 method: "POST",
                 headers: {
@@ -6774,7 +6952,7 @@ async function registerRoutes(app2) {
           );
           try {
             const response = await fetch(
-              "https://qa-api.resolveindia.com/reports/worker-master-leave",
+              "https://apiv1.resolvepay.in/reports/worker-master-leave",
               {
                 method: "POST",
                 headers: {
@@ -7128,9 +7306,12 @@ async function registerRoutes(app2) {
               );
               if (existingBalance) {
                 console.log(
-                  `[BalanceImport] DUPLICATE PREVENTION: Balance already exists for user ${userId}, variant ${variant.id} - SKIPPING`
+                  `[BalanceImport] UPDATING EXISTING: Balance found for user ${userId}, variant ${variant.id} - UPDATING with new values`
                 );
-                continue;
+              } else {
+                console.log(
+                  `[BalanceImport] CREATING NEW: No existing balance found for user ${userId}, variant ${variant.id} - CREATING new balance`
+                );
               }
               await storage.upsertLeaveBalance({
                 userId,
@@ -7560,7 +7741,7 @@ async function registerRoutes(app2) {
       let allEmployees = [];
       try {
         const response = await fetch(
-          "https://qa-api.resolveindia.com/worker-master-leave",
+          "https://apiv1.resolvepay.in/worker-master-leave",
           {
             headers: {
               Authorization: `Bearer ${req.headers.authorization?.replace("Bearer ", "") || ""}`
@@ -7856,16 +8037,61 @@ async function registerRoutes(app2) {
   app2.get("/api/collaborative-tasks", isAuthenticated, async (req, res) => {
     try {
       const orgId = getOrgIdFromHeaders(req);
-      const allTasks = await db.select().from(leaveTaskAssigneesEnhanced).leftJoin(
-        leaveRequests,
-        eq3(leaveTaskAssigneesEnhanced.leaveRequestId, leaveRequests.id)
-      ).where(eq3(leaveTaskAssigneesEnhanced.orgId, orgId)).orderBy(desc2(leaveTaskAssigneesEnhanced.createdAt));
-      const transformedTasks = allTasks.map((row) => ({
-        ...row.leave_task_assignees_enhanced,
-        leaveRequesterId: row.leave_requests?.userId || null,
-        leaveRequesterName: row.leave_requests?.employeeName || null
-      }));
-      res.json(transformedTasks);
+      const client = await pool.connect();
+      try {
+        const tableCheckResult = await client.query(`
+          SELECT table_name 
+          FROM information_schema.tables 
+          WHERE table_schema = 'public' 
+          AND table_name = 'leave_task_assignees'
+        `);
+        if (tableCheckResult.rows.length === 0) {
+          console.log(
+            `[Server] Collaborative task tables not yet created for org_id ${orgId}`
+          );
+          res.json([]);
+          return;
+        }
+        const result = await client.query(
+          `
+          SELECT 
+            lta.id,
+            lta.leave_request_id as "leaveRequestId",
+            lta.assignee_name as "assigneeName",
+            lta.assignee_email as "assigneeEmail", 
+            lta.assignee_phone as "assigneePhone",
+            lta.task_description as "taskDescription",
+            lta.expected_support_date_from as "expectedSupportDateFrom",
+            lta.expected_support_date_to as "expectedSupportDateTo", 
+            lta.expected_support_date as "expectedSupportDate",
+            lta.additional_notes as "additionalNotes",
+            lta.notification_method as "notificationMethod",
+            lta.status,
+            lta.acceptance_response as "acceptanceResponse",
+            lta.status_comments as "statusComments",
+            lta.notification_sent as "notificationSent",
+            lta.accepted_at as "acceptedAt",
+            lta.last_status_update as "lastStatusUpdate",
+            lta.unique_link as "uniqueLink",
+            lta.org_id as "orgId",
+            lta.created_at as "createdAt",
+            lta.updated_at as "updatedAt",
+            lr.user_id as "leaveRequesterId"
+          FROM leave_task_assignees lta
+          LEFT JOIN leave_requests lr ON lta.leave_request_id = lr.id
+          WHERE lta.org_id = $1
+          ORDER BY lta.created_at DESC
+        `,
+          [orgId]
+        );
+        const tasks = result.rows || [];
+        console.log(
+          `[Server] Found ${tasks.length} collaborative tasks for org_id ${orgId}`
+        );
+        res.json(tasks);
+      } finally {
+        client.release();
+      }
     } catch (error) {
       console.error("Error fetching all collaborative tasks:", error);
       res.status(500).json({
@@ -8466,6 +8692,19 @@ async function registerRoutes(app2) {
       res.status(500).json({ error: error.message });
     }
   });
+  app2.get("/api/current-ip", async (req, res) => {
+    try {
+      const response = await fetch("http://checkip.amazonaws.com");
+      const ip = await response.text();
+      res.json({
+        ip: ip.trim(),
+        headers: req.headers,
+        connection: req.connection?.remoteAddress
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to get IP" });
+    }
+  });
   const httpServer = createServer(app2);
   app2.delete(
     "/api/delete-all-imported-data",
@@ -8756,14 +8995,11 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
   const port = 5e3;
-  server.listen(
-    {
-      port,
-      host: "0.0.0.0",
-      reusePort: true
-    },
-    () => {
-      log(`serving on port ${port}`);
-    }
-  );
+  server.listen({
+    port,
+    host: "0.0.0.0",
+    reusePort: true
+  }, () => {
+    log(`serving on port ${port}`);
+  });
 })();

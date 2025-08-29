@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Opening Balance Fix</title>
+</head>
+<body>
+    <h1>Testing Opening Balance Fix for Sanjay</h1>
+    <div id="status">Setting context...</div>
+    <script>
+        // Clear and set context
+        localStorage.clear();
+        localStorage.setItem('user_id', '241');
+        localStorage.setItem('org_id', '13');
+        localStorage.setItem('role', 'admin');
+        
+        document.getElementById('status').textContent = 'Context set: user_id=241, org_id=13 (Sanjay Prabhu)';
+        
+        // Navigate to Leave Applications after setting context
+        setTimeout(() => {
+            document.getElementById('status').textContent = 'Navigating to Leave Applications...';
+            window.location.href = '/leave-applications';
+        }, 1500);
+    </script>
+</body>
+</html>

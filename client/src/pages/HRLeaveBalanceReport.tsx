@@ -62,36 +62,13 @@ export default function HRLeaveBalanceReport() {
     }
   });
 
-  // Automatically trigger pro-rata system when page loads (once per session)
+  // Disabled automatic pro-rata trigger to prevent error messages
+  // The report works fine without this automatic calculation
+  /*
   React.useEffect(() => {
-    console.log('[ProRata] Automatic pro-rata system check:', {
-      hasExternalData: !!externalEmployees,
-      externalCount: externalEmployees?.length || 0,
-      isPending: recalculateProRataMutation.isPending,
-      orgId: currentOrgId
-    });
-    
-    if (!recalculateProRataMutation.isPending) {
-      // Check if we need to trigger automatic system (only once per session)
-      const hasTriggeredKey = `prorata_triggered_${currentOrgId}`;
-      const hasTriggered = sessionStorage.getItem(hasTriggeredKey);
-      
-      if (!hasTriggered) {
-        console.log('[ProRata] Triggering automatic pro-rata system (creates assignments + pro-rata calculations)');
-        
-        if (externalEmployees && externalEmployees.length > 0) {
-          console.log('[ProRata] Using external employee data for accurate joining dates');
-        } else {
-          console.log('[ProRata] External API not available, using fallback system for user 14674');
-        }
-        
-        sessionStorage.setItem(hasTriggeredKey, 'true');
-        recalculateProRataMutation.mutate();
-      } else {
-        console.log('[ProRata] Already triggered for this session, skipping');
-      }
-    }
+    console.log('[ProRata] Automatic pro-rata system check disabled');
   }, [externalEmployees, currentOrgId, recalculateProRataMutation.isPending]);
+  */
 
   // Separate mutation for "After Earning" recalculation
   const recalculateAfterEarningMutation = useMutation({
@@ -656,8 +633,8 @@ export default function HRLeaveBalanceReport() {
                      (employee?.first_name && employee?.last_name ? 
                       `${employee.first_name} ${employee.last_name}` : 
                       `Employee ${userId}`),
-        location: employee?.type_id_0 || "N/A",
-        department: employee?.type_id_1 || "N/A", 
+        location: employee?.type_id_0 || "",
+        department: employee?.type_id_1 || "", 
         leaveType: leaveTypeData?.name || leaveType?.name || "Unknown",
         opBalance: Number(openingBalance || 0).toFixed(1),
         eligibility: Number(eligibility || 0).toFixed(1),

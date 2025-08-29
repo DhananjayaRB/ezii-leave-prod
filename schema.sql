@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 16.9
--- Dumped by pg_dump version 16.5
+-- Dumped by pg_dump version 16.9
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -42,6 +42,85 @@ CREATE TYPE public.user_role AS ENUM (
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+--
+-- Name: collaborative_leave_audit_log; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.collaborative_leave_audit_log (
+    id integer NOT NULL,
+    user_id character varying NOT NULL,
+    action_type character varying NOT NULL,
+    related_entity_type character varying NOT NULL,
+    related_entity_id integer NOT NULL,
+    old_value text,
+    new_value text,
+    details text,
+    "timestamp" timestamp without time zone DEFAULT now(),
+    org_id integer DEFAULT 60
+);
+
+
+--
+-- Name: collaborative_leave_audit_log_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.collaborative_leave_audit_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: collaborative_leave_audit_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.collaborative_leave_audit_log_id_seq OWNED BY public.collaborative_leave_audit_log.id;
+
+
+--
+-- Name: collaborative_leave_settings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.collaborative_leave_settings (
+    id integer NOT NULL,
+    enabled boolean DEFAULT false,
+    org_id integer DEFAULT 60,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    max_tasks_per_leave integer DEFAULT 3,
+    auto_reminder_days integer DEFAULT 1,
+    require_manager_approval boolean DEFAULT false,
+    closure_report_required boolean DEFAULT true,
+    manager_review_required boolean DEFAULT false,
+    enable_whatsapp boolean DEFAULT false,
+    enable_email_notifications boolean DEFAULT true,
+    default_notification_method character varying(50) DEFAULT 'email'::character varying
+);
+
+
+--
+-- Name: collaborative_leave_settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.collaborative_leave_settings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: collaborative_leave_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.collaborative_leave_settings_id_seq OWNED BY public.collaborative_leave_settings.id;
+
 
 --
 -- Name: comp_off_config; Type: TABLE; Schema: public; Owner: -
@@ -288,9 +367,9 @@ CREATE TABLE public.employee_leave_balances (
     id integer NOT NULL,
     user_id character varying NOT NULL,
     leave_variant_id integer NOT NULL,
-    total_entitlement integer NOT NULL,
-    current_balance integer NOT NULL,
-    used_balance integer DEFAULT 0 NOT NULL,
+    total_entitlement numeric(10,2) NOT NULL,
+    current_balance numeric(10,2) NOT NULL,
+    used_balance numeric(10,2) DEFAULT 0 NOT NULL,
     carry_forward integer DEFAULT 0 NOT NULL,
     year integer NOT NULL,
     org_id integer DEFAULT 60,
@@ -364,8 +443,8 @@ CREATE TABLE public.leave_balance_transactions (
     user_id character varying NOT NULL,
     leave_variant_id integer NOT NULL,
     transaction_type character varying NOT NULL,
-    amount integer NOT NULL,
-    balance_after integer NOT NULL,
+    amount numeric(10,2) NOT NULL,
+    balance_after numeric(10,2) NOT NULL,
     description text,
     transaction_date timestamp without time zone DEFAULT now(),
     leave_request_id integer,
@@ -396,6 +475,46 @@ ALTER SEQUENCE public.leave_balance_transactions_id_seq OWNED BY public.leave_ba
 
 
 --
+-- Name: leave_closure_reports; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.leave_closure_reports (
+    id integer NOT NULL,
+    leave_request_id integer NOT NULL,
+    employee_comments text,
+    overall_leave_comments text,
+    manager_rating character varying,
+    manager_comments text,
+    submitted_at timestamp without time zone,
+    reviewed_at timestamp without time zone,
+    reviewed_by character varying,
+    org_id integer DEFAULT 60,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+--
+-- Name: leave_closure_reports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.leave_closure_reports_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: leave_closure_reports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.leave_closure_reports_id_seq OWNED BY public.leave_closure_reports.id;
+
+
+--
 -- Name: leave_requests; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -419,7 +538,8 @@ CREATE TABLE public.leave_requests (
     workflow_id integer,
     current_step integer DEFAULT 0,
     workflow_status character varying DEFAULT 'bypassed'::character varying,
-    approval_history jsonb DEFAULT '[]'::jsonb
+    approval_history jsonb DEFAULT '[]'::jsonb,
+    scheduled_auto_approval_at timestamp without time zone
 );
 
 
@@ -441,6 +561,60 @@ CREATE SEQUENCE public.leave_requests_id_seq
 --
 
 ALTER SEQUENCE public.leave_requests_id_seq OWNED BY public.leave_requests.id;
+
+
+--
+-- Name: leave_task_assignees; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.leave_task_assignees (
+    id integer NOT NULL,
+    leave_request_id integer NOT NULL,
+    assignee_name character varying NOT NULL,
+    assignee_email character varying NOT NULL,
+    assignee_phone character varying,
+    task_description text NOT NULL,
+    expected_support_date date,
+    notification_method character varying NOT NULL,
+    status character varying DEFAULT 'pending'::character varying NOT NULL,
+    acceptance_token character varying,
+    accepted_at timestamp without time zone,
+    rejected_at timestamp without time zone,
+    rejection_comment text,
+    status_update_comment text,
+    last_status_update timestamp without time zone,
+    org_id integer DEFAULT 60,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    expected_support_date_from date,
+    expected_support_date_to date,
+    additional_notes text,
+    acceptance_response text,
+    status_comments text,
+    notification_sent boolean DEFAULT false,
+    unique_link character varying(255),
+    assignee_user_id character varying
+);
+
+
+--
+-- Name: leave_task_assignees_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.leave_task_assignees_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: leave_task_assignees_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.leave_task_assignees_id_seq OWNED BY public.leave_task_assignees.id;
 
 
 --
@@ -559,6 +733,45 @@ CREATE SEQUENCE public.leave_variants_id_seq
 --
 
 ALTER SEQUENCE public.leave_variants_id_seq OWNED BY public.leave_variants.id;
+
+
+--
+-- Name: performance_records; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.performance_records (
+    id integer NOT NULL,
+    user_id character varying NOT NULL,
+    leave_request_id integer,
+    rating_type character varying NOT NULL,
+    rating character varying NOT NULL,
+    comments text,
+    rated_by character varying NOT NULL,
+    rating_date timestamp without time zone DEFAULT now(),
+    year integer NOT NULL,
+    org_id integer DEFAULT 60,
+    created_at timestamp without time zone DEFAULT now()
+);
+
+
+--
+-- Name: performance_records_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.performance_records_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: performance_records_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.performance_records_id_seq OWNED BY public.performance_records.id;
 
 
 --
@@ -755,6 +968,43 @@ CREATE TABLE public.sessions (
 
 
 --
+-- Name: task_status_updates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.task_status_updates (
+    id integer NOT NULL,
+    task_id integer NOT NULL,
+    old_status character varying,
+    new_status character varying NOT NULL,
+    update_comment text,
+    updated_by character varying,
+    ip_address character varying,
+    org_id integer DEFAULT 60,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+--
+-- Name: task_status_updates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.task_status_updates_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: task_status_updates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.task_status_updates_id_seq OWNED BY public.task_status_updates.id;
+
+
+--
 -- Name: user_roles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -818,7 +1068,9 @@ CREATE TABLE public.workflows (
     org_id integer DEFAULT 60,
     process character varying,
     sub_processes text[],
-    effective_date date
+    effective_date date,
+    auto_approval_days integer DEFAULT 0,
+    auto_approval_hours integer DEFAULT 0
 );
 
 
@@ -840,6 +1092,20 @@ CREATE SEQUENCE public.workflows_id_seq
 --
 
 ALTER SEQUENCE public.workflows_id_seq OWNED BY public.workflows.id;
+
+
+--
+-- Name: collaborative_leave_audit_log id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collaborative_leave_audit_log ALTER COLUMN id SET DEFAULT nextval('public.collaborative_leave_audit_log_id_seq'::regclass);
+
+
+--
+-- Name: collaborative_leave_settings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collaborative_leave_settings ALTER COLUMN id SET DEFAULT nextval('public.collaborative_leave_settings_id_seq'::regclass);
 
 
 --
@@ -899,10 +1165,24 @@ ALTER TABLE ONLY public.leave_balance_transactions ALTER COLUMN id SET DEFAULT n
 
 
 --
+-- Name: leave_closure_reports id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leave_closure_reports ALTER COLUMN id SET DEFAULT nextval('public.leave_closure_reports_id_seq'::regclass);
+
+
+--
 -- Name: leave_requests id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.leave_requests ALTER COLUMN id SET DEFAULT nextval('public.leave_requests_id_seq'::regclass);
+
+
+--
+-- Name: leave_task_assignees id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leave_task_assignees ALTER COLUMN id SET DEFAULT nextval('public.leave_task_assignees_id_seq'::regclass);
 
 
 --
@@ -917,6 +1197,13 @@ ALTER TABLE ONLY public.leave_types ALTER COLUMN id SET DEFAULT nextval('public.
 --
 
 ALTER TABLE ONLY public.leave_variants ALTER COLUMN id SET DEFAULT nextval('public.leave_variants_id_seq'::regclass);
+
+
+--
+-- Name: performance_records id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.performance_records ALTER COLUMN id SET DEFAULT nextval('public.performance_records_id_seq'::regclass);
 
 
 --
@@ -948,6 +1235,13 @@ ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_
 
 
 --
+-- Name: task_status_updates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_status_updates ALTER COLUMN id SET DEFAULT nextval('public.task_status_updates_id_seq'::regclass);
+
+
+--
 -- Name: user_roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -959,6 +1253,22 @@ ALTER TABLE ONLY public.user_roles ALTER COLUMN id SET DEFAULT nextval('public.u
 --
 
 ALTER TABLE ONLY public.workflows ALTER COLUMN id SET DEFAULT nextval('public.workflows_id_seq'::regclass);
+
+
+--
+-- Name: collaborative_leave_audit_log collaborative_leave_audit_log_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collaborative_leave_audit_log
+    ADD CONSTRAINT collaborative_leave_audit_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: collaborative_leave_settings collaborative_leave_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collaborative_leave_settings
+    ADD CONSTRAINT collaborative_leave_settings_pkey PRIMARY KEY (id);
 
 
 --
@@ -1034,11 +1344,27 @@ ALTER TABLE ONLY public.leave_balance_transactions
 
 
 --
+-- Name: leave_closure_reports leave_closure_reports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leave_closure_reports
+    ADD CONSTRAINT leave_closure_reports_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: leave_requests leave_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.leave_requests
     ADD CONSTRAINT leave_requests_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: leave_task_assignees leave_task_assignees_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leave_task_assignees
+    ADD CONSTRAINT leave_task_assignees_pkey PRIMARY KEY (id);
 
 
 --
@@ -1055,6 +1381,14 @@ ALTER TABLE ONLY public.leave_types
 
 ALTER TABLE ONLY public.leave_variants
     ADD CONSTRAINT leave_variants_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: performance_records performance_records_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.performance_records
+    ADD CONSTRAINT performance_records_pkey PRIMARY KEY (id);
 
 
 --
@@ -1098,6 +1432,14 @@ ALTER TABLE ONLY public.sessions
 
 
 --
+-- Name: task_status_updates task_status_updates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_status_updates
+    ADD CONSTRAINT task_status_updates_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: user_roles user_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1137,6 +1479,22 @@ CREATE INDEX "IDX_session_expire" ON public.sessions USING btree (expire);
 
 
 --
+-- Name: leave_closure_reports leave_closure_reports_leave_request_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leave_closure_reports
+    ADD CONSTRAINT leave_closure_reports_leave_request_id_fkey FOREIGN KEY (leave_request_id) REFERENCES public.leave_requests(id);
+
+
+--
+-- Name: leave_task_assignees leave_task_assignees_leave_request_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leave_task_assignees
+    ADD CONSTRAINT leave_task_assignees_leave_request_id_fkey FOREIGN KEY (leave_request_id) REFERENCES public.leave_requests(id);
+
+
+--
 -- Name: leave_variants leave_variants_leave_type_id_leave_types_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1150,6 +1508,14 @@ ALTER TABLE ONLY public.leave_variants
 
 ALTER TABLE ONLY public.pto_requests
     ADD CONSTRAINT pto_requests_pto_variant_id_fkey FOREIGN KEY (pto_variant_id) REFERENCES public.pto_variants(id);
+
+
+--
+-- Name: task_status_updates task_status_updates_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_status_updates
+    ADD CONSTRAINT task_status_updates_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.leave_task_assignees(id);
 
 
 --

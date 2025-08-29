@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Switch to Employees Test - Org 13</title>
+</head>
+<body>
+    <h1>Switch to Org 13 - Test Employees Screen</h1>
+    <p>Click the button to switch to org_id 13 and view the working employees screen.</p>
+    
+    <button onclick="switchToOrg13Employees()">Switch to Org 13 & View Employees</button>
+    
+    <script>
+    function switchToOrg13Employees() {
+        console.log('Switching to org_id 13 to test employees screen...');
+        
+        // Switch to org_id 13 where employee data is available
+        localStorage.setItem('org_id', '13');
+        localStorage.setItem('user_id', '225'); // Test user
+        localStorage.setItem('role', 'admin');
+        
+        console.log('Set org_id to 13, user_id to 225, role to admin');
+        
+        // Navigate directly to employees screen
+        window.location.href = '/employees';
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Negative Balance Validation</title>
+</head>
+<body>
+    <script>
+        // Set user context to Sanjay (user 241) in org 13
+        // According to data, Sanjay has only 1.0 day available for Casual & Sick Leave
+        localStorage.setItem('user_id', '241');
+        localStorage.setItem('org_id', '13');
+        localStorage.setItem('role', 'employee');
+        localStorage.setItem('role_name', 'employee');
+        
+        console.log('✅ Test Setup: Set user context to Sanjay (user 241) in org 13');
+        console.log('📋 Expected: Sanjay should have 1.0 day available for Casual & Sick Leave');
+        console.log('🚫 Validation: Should prevent applying for more than 1.0 days since negative balance = 0');
+        
+        // Navigate to leave applications page
+        window.location.href = '/leave-applications';
+    </script>
+</body>
+</html>

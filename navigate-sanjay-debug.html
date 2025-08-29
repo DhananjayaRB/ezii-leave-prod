@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigate to Sanjay for Debug</title>
+</head>
+<body>
+    <h1>Setting context for Sanjay and opening debug</h1>
+    <script>
+        // Clear existing context
+        localStorage.clear();
+        
+        // Set Sanjay's context
+        localStorage.setItem('user_id', '241');
+        localStorage.setItem('org_id', '13');
+        
+        console.log('Set context: user_id=241, org_id=13 (Sanjay Prabhu)');
+        
+        // Redirect to Leave Applications page
+        setTimeout(() => {
+            window.location.href = '/leave-applications';
+        }, 1000);
+    </script>
+</body>
+</html>

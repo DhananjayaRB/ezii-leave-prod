@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  createContext,
-  ReactNode,
-} from "react";
+import React, { useState, useEffect, useContext, createContext, ReactNode } from "react";
 import { useAuth } from "./useAuth";
 
 interface Reportee {
@@ -27,12 +21,9 @@ interface ReportingManagerContextType {
   clearReportees: () => void;
 }
 
-const ReportingManagerContext =
-  createContext<ReportingManagerContextType | null>(null);
+const ReportingManagerContext = createContext<ReportingManagerContextType | null>(null);
 
-export const ReportingManagerProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const ReportingManagerProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { isAuthenticated, user } = useAuth();
   const [reportingData, setReportingData] = useState<ReportingManagerData>({
     reportees: [],
@@ -43,33 +34,30 @@ export const ReportingManagerProvider: React.FC<{ children: ReactNode }> = ({
 
   const fetchReportees = async (userId: string) => {
     console.log("[ReportingManager] Fetching reportees for user_id:", userId);
-    setReportingData((prev) => ({ ...prev, isLoading: true, error: null }));
+    setReportingData(prev => ({ ...prev, isLoading: true, error: null }));
 
     try {
       // Get JWT token from localStorage
-      const jwtToken = localStorage.getItem("jwtToken");
+      const jwtToken = localStorage.getItem('jwtToken');
       if (!jwtToken) {
         console.log("[ReportingManager] No JWT token found");
-        setReportingData((prev) => ({
-          ...prev,
-          isLoading: false,
+        setReportingData(prev => ({ 
+          ...prev, 
+          isLoading: false, 
           error: "No authentication token found",
           reportees: [],
-          isReportingManager: false,
+          isReportingManager: false 
         }));
         return;
       }
 
-      const response = await fetch(
-        `https://apiv1.resolvepay.in/organization/reporting-manager/${userId}/reportees`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${jwtToken}`,
-            "Content-Type": "application/json",
-          },
+      const response = await fetch(`https://apiv1.resolvepay.in/organization/reporting-manager/${userId}/reportees`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${jwtToken}`,
+          'Content-Type': 'application/json',
         },
-      );
+      });
 
       if (!response.ok) {
         throw new Error(`API request failed: ${response.status}`);
@@ -86,20 +74,15 @@ export const ReportingManagerProvider: React.FC<{ children: ReactNode }> = ({
           isLoading: false,
           error: null,
         });
-
+        
         // Store in localStorage for persistence
-        localStorage.setItem(
-          "reportingManager_data",
-          JSON.stringify({
-            reportees,
-            isReportingManager: reportees.length > 0,
-            lastFetch: Date.now(),
-          }),
-        );
-
-        console.log(
-          `[ReportingManager] User is ${reportees.length > 0 ? "a reporting manager" : "not a reporting manager"} with ${reportees.length} reportees`,
-        );
+        localStorage.setItem('reportingManager_data', JSON.stringify({
+          reportees,
+          isReportingManager: reportees.length > 0,
+          lastFetch: Date.now()
+        }));
+        
+        console.log(`[ReportingManager] User is ${reportees.length > 0 ? 'a reporting manager' : 'not a reporting manager'} with ${reportees.length} reportees`);
       } else {
         setReportingData({
           reportees: [],
@@ -110,11 +93,10 @@ export const ReportingManagerProvider: React.FC<{ children: ReactNode }> = ({
       }
     } catch (error) {
       console.error("[ReportingManager] Error fetching reportees:", error);
-      setReportingData((prev) => ({
+      setReportingData(prev => ({
         ...prev,
         isLoading: false,
-        error:
-          error instanceof Error ? error.message : "Failed to fetch reportees",
+        error: error instanceof Error ? error.message : "Failed to fetch reportees",
       }));
     }
   };
@@ -127,20 +109,17 @@ export const ReportingManagerProvider: React.FC<{ children: ReactNode }> = ({
       isLoading: false,
       error: null,
     });
-    localStorage.removeItem("reportingManager_data");
+    localStorage.removeItem('reportingManager_data');
   };
 
   // Auto-fetch when user logs in
   useEffect(() => {
     if (isAuthenticated && user) {
-      const userId = localStorage.getItem("user_id") || user.id;
-      console.log(
-        "[ReportingManager] User authenticated, auto-fetching reportees for user_id:",
-        userId,
-      );
-
+      const userId = localStorage.getItem('user_id') || user.id;
+      console.log("[ReportingManager] User authenticated, auto-fetching reportees for user_id:", userId);
+      
       // Check if we have recent cached data first
-      const storedData = localStorage.getItem("reportingManager_data");
+      const storedData = localStorage.getItem('reportingManager_data');
       if (storedData) {
         try {
           const parsed = JSON.parse(storedData);
@@ -160,16 +139,14 @@ export const ReportingManagerProvider: React.FC<{ children: ReactNode }> = ({
           console.error("[ReportingManager] Error parsing stored data:", error);
         }
       }
-
+      
       // Fetch fresh data if no valid cache
       fetchReportees(userId);
     }
   }, [isAuthenticated, user?.id]);
 
   return (
-    <ReportingManagerContext.Provider
-      value={{ reportingData, fetchReportees, clearReportees }}
-    >
+    <ReportingManagerContext.Provider value={{ reportingData, fetchReportees, clearReportees }}>
       {children}
     </ReportingManagerContext.Provider>
   );
@@ -178,9 +155,7 @@ export const ReportingManagerProvider: React.FC<{ children: ReactNode }> = ({
 export function useReportingManager() {
   const context = useContext(ReportingManagerContext);
   if (!context) {
-    throw new Error(
-      "useReportingManager must be used within ReportingManagerProvider",
-    );
+    throw new Error("useReportingManager must be used within ReportingManagerProvider");
   }
   return context;
 }

@@ -288,15 +288,16 @@ export default function LeaveTypesSetup({ onNext, onPrevious, isLast, isLoading,
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
         <h2 className="text-2xl font-bold text-gray-900">Configure Leave Types</h2>
         <Button
           variant="outline"
-          className="text-green-600 border-green-600 hover:bg-green-50"
+          className="text-green-600 border-green-600 hover:bg-green-50 w-full sm:w-auto"
           onClick={() => setShowCustomLeaveTypeForm(true)}
         >
           <Plus className="w-4 h-4 mr-2" />
-          Create Custom Leave
+          <span className="hidden sm:inline">Create Custom Leave</span>
+          <span className="sm:hidden">Create Custom Leave</span>
         </Button>
       </div>
 
@@ -311,7 +312,7 @@ export default function LeaveTypesSetup({ onNext, onPrevious, isLast, isLoading,
           return (
             <Card key={leaveType.id} className="border border-gray-200 hover:border-gray-300 transition-colors">
               <CardContent className="p-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                   <div className="flex items-center space-x-4">
                     <div 
                       className="w-10 h-10 rounded-lg flex items-center justify-center"
@@ -332,15 +333,16 @@ export default function LeaveTypesSetup({ onNext, onPrevious, isLast, isLoading,
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center justify-end space-x-2">
                     {hasVariants ? (
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => handleNavigateToLeaveType(leaveType)}
-                        className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                        className="text-blue-600 border-blue-600 hover:bg-blue-50 whitespace-nowrap"
                       >
-                        Manage Variants
+                        <span className="hidden sm:inline">Manage Variants</span>
+                        <span className="sm:hidden">Manage</span>
                       </Button>
                     ) : (
                       <>
@@ -356,9 +358,10 @@ export default function LeaveTypesSetup({ onNext, onPrevious, isLast, isLoading,
                         <Button
                           size="sm"
                           onClick={() => handleCreateVariant(leaveType)}
-                          className="bg-green-600 hover:bg-green-700 text-white"
+                          className="bg-green-600 hover:bg-green-700 text-white whitespace-nowrap"
                         >
-                          Create Leave
+                          <span className="hidden sm:inline">Create Leave</span>
+                          <span className="sm:hidden">Create</span>
                           <ChevronRight className="w-4 h-4 ml-1" />
                         </Button>
                       </>
@@ -414,7 +417,7 @@ export default function LeaveTypesSetup({ onNext, onPrevious, isLast, isLoading,
           return (
             <Card key={leaveType.id || index} className="border border-gray-200 hover:border-gray-300 transition-colors">
               <CardContent className="p-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                   <div className="flex items-center space-x-4">
                     <div 
                       className="w-10 h-10 rounded-lg flex items-center justify-center"
@@ -435,15 +438,17 @@ export default function LeaveTypesSetup({ onNext, onPrevious, isLast, isLoading,
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center justify-end space-x-2">
                     {hasVariants ? (
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => handleNavigateToLeaveType(leaveType)}
-                        className="text-blue-600 border-blue-300 hover:bg-blue-50 p-2"
+                        className="text-blue-600 border-blue-300 hover:bg-blue-50 whitespace-nowrap"
                       >
-                        <ChevronRight className="w-4 h-4" />
+                        <span className="hidden sm:inline">Manage Variants</span>
+                        <span className="sm:hidden">Manage</span>
+                        <ChevronRight className="w-4 h-4 ml-1" />
                       </Button>
                     ) : (
                       <>
@@ -459,9 +464,10 @@ export default function LeaveTypesSetup({ onNext, onPrevious, isLast, isLoading,
                         <Button
                           size="sm"
                           onClick={() => handleCreateVariant(leaveType)}
-                          className="bg-green-600 hover:bg-green-700 text-white"
+                          className="bg-green-600 hover:bg-green-700 text-white whitespace-nowrap"
                         >
-                          Create Leave
+                          <span className="hidden sm:inline">Create Leave</span>
+                          <span className="sm:hidden">Create</span>
                           <ChevronRight className="w-4 h-4 ml-1" />
                         </Button>
                       </>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fix Location/Department Issue</title>
+</head>
+<body>
+    <h1>Fix Location/Department Issue - HR Report</h1>
+    <p>This will setup proper JWT token and navigate to HR report</p>
+    
+    <h3>Step 1: Get JWT Token</h3>
+    <p>You need to provide a JWT token to access external employee data:</p>
+    <input type="text" id="jwtToken" placeholder="Paste JWT token here..." style="width: 500px; padding: 8px;">
+    <button onclick="setupToken()">Setup Token</button>
+    
+    <h3>Step 2: Navigate to HR Report</h3>
+    <button onclick="goToReport()">Go to HR Report</button>
+    
+    <div id="status"></div>
+    
+    <script>
+    function setupToken() {
+        const token = document.getElementById('jwtToken').value.trim();
+        const status = document.getElementById('status');
+        
+        if (token) {
+            localStorage.setItem('jwt_token', token);
+            localStorage.setItem('org_id', '13');
+            localStorage.setItem('user_id', '225');
+            localStorage.setItem('role', 'admin');
+            
+            status.innerHTML = '<div style="color: green; padding: 10px; background: #e8f5e8;">✅ JWT token setup complete!</div>';
+        } else {
+            status.innerHTML = '<div style="color: red; padding: 10px; background: #ffebee;">❌ Please enter a JWT token</div>';
+        }
+    }
+    
+    function goToReport() {
+        const token = localStorage.getItem('jwt_token');
+        if (!token) {
+            document.getElementById('status').innerHTML = '<div style="color: red; padding: 10px; background: #ffebee;">❌ Please setup JWT token first</div>';
+            return;
+        }
+        
+        window.location.href = '/reports/admin-reports/leave-balances';
+    }
+    
+    // Check current state
+    window.onload = function() {
+        const token = localStorage.getItem('jwt_token');
+        const status = document.getElementById('status');
+        
+        if (token) {
+            status.innerHTML = '<div style="color: green; padding: 10px; background: #e8f5e8;">JWT token already exists. You can go to HR report.</div>';
+        } else {
+            status.innerHTML = '<div style="color: orange; padding: 10px; background: #fff3cd;">No JWT token found. Please add one to access external employee data.</div>';
+        }
+    }
+    </script>
+</body>
+</html>

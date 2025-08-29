@@ -381,7 +381,7 @@ export default function Layout({ children }: LayoutProps) {
       </div>
 
       {/* Mobile Bottom Module Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-gray-800 z-30 flex justify-around items-center py-2 border-t border-gray-700">
+      <div className="hidden fixed bottom-0 left-0 right-0 bg-gray-800 z-30 flex justify-around items-center py-2 border-t border-gray-700">
         {modules.map((module) => {
           const Icon = module.icon;
           return (

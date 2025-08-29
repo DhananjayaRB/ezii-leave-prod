@@ -156,7 +156,7 @@ export default function SetupWizard({ company }: SetupWizardProps) {
   return (
     <div className="fixed inset-0 z-50 flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <div className="w-64 bg-gray-900 text-white">
+      <div className="w-64 bg-white border-r border-gray-200 shadow-sm text-gray-900">
         <div className="p-4">
           <div className="flex items-center mb-8">
             <img 
@@ -167,31 +167,31 @@ export default function SetupWizard({ company }: SetupWizardProps) {
           </div>
           
           <div className="mb-6">
-            <div className="flex items-center space-x-2 text-white mb-4">
-              <div className="w-5 h-5 bg-white rounded flex items-center justify-center">
-                <span className="text-gray-900 font-bold text-xs">□</span>
+            <div className="flex items-center space-x-2 text-gray-900 mb-4">
+              <div className="w-5 h-5 bg-blue-600 rounded flex items-center justify-center">
+                <span className="text-white font-bold text-xs">□</span>
               </div>
-              <span className="font-medium text-sm">Setup</span>
+              <span className="font-semibold text-sm">Setup</span>
             </div>
-            <div className="text-xs text-gray-400 ml-7">Leave</div>
+            <div className="text-xs text-gray-500 ml-7">Leave</div>
           </div>
 
           <div className="space-y-2">
             {steps.map((step, index) => (
               <div 
                 key={index}
-                className={`flex items-center space-x-3 p-2 rounded transition-colors ${
+                className={`flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 ${
                   currentStep === index + 1 
-                    ? 'bg-gray-800 text-white' 
-                    : 'text-gray-300 hover:text-white'
+                    ? 'bg-blue-50 border border-blue-200 text-blue-900 shadow-sm' 
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                 }`}
               >
-                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-medium ${
+                <div className={`w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-semibold ${
                   currentStep === index + 1 
-                    ? 'border-white bg-white text-gray-900' 
+                    ? 'border-blue-500 bg-blue-500 text-white shadow-sm' 
                     : currentStep > index + 1 
-                      ? 'border-green-400 bg-green-400 text-white'
-                      : 'border-gray-500 text-gray-500'
+                      ? 'border-green-500 bg-green-500 text-white'
+                      : 'border-gray-300 bg-gray-50 text-gray-500'
                 }`}>
                   {index + 1}
                 </div>

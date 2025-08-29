@@ -2434,13 +2434,10 @@ export class DatabaseStorage implements IStorage {
         const currentYear = currentDate.getFullYear();
         const currentMonth = currentDate.getMonth();
         
-        console.log(`[InAdvance] Monthly calculation: from ${startDate.toISOString().split('T')[0]} to ${currentDate.toISOString().split('T')[0]}`);
-        
         if (currentYear === startYear) {
           // Same year: grant from start month to current month (inclusive)
           const monthsToGrant = Math.max(0, currentMonth - startMonth + 1);
           totalGranted = monthsToGrant * monthlyAmount;
-          console.log(`[InAdvance] Same year: ${monthsToGrant} months * ${monthlyAmount} days/month = ${totalGranted} days`);
         } else {
           // Different years: grant remaining months in start year + months in current year
           const monthsInStartYear = 12 - startMonth; // Remaining months in start year
@@ -2541,17 +2538,16 @@ export class DatabaseStorage implements IStorage {
       const monthlyAccrual = totalEntitlement / 12;
       return completedMonths * monthlyAccrual;
     } else {
-      // In advance: pro-rata based on remaining months in the year
-      let remainingMonths = 12;
+      // FIXED: In advance grants based on elapsed months from joining date to current date
+      let elapsedMonths = 12; // Default for employees who joined before current year
       
       if (currentYear === joiningYear) {
-        // Calculate remaining months from joining month to end of year
-        remainingMonths = 12 - joiningMonth;
+        // Calculate elapsed months from joining month to current month (inclusive)
+        elapsedMonths = Math.max(0, currentMonth - joiningMonth + 1);
       }
 
-      console.log(`[ProRata] In Advance calculation: ${remainingMonths} remaining months from ${joiningDate.toISOString().split('T')[0]}`);
       const monthlyEntitlement = totalEntitlement / 12;
-      return remainingMonths * monthlyEntitlement;
+      return elapsedMonths * monthlyEntitlement;
     }
   }
 

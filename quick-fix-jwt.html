@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick Fix - Extract JWT Token</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 600px; background: white; padding: 20px; border-radius: 8px; }
+        button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin: 5px; }
+        .success { background: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 4px; margin: 10px 0; }
+        .error { background: #f8d7da; border: 1px solid #f5c6cb; padding: 15px; border-radius: 4px; margin: 10px 0; }
+        input { width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quick Fix: Extract JWT Token for Location/Department</h1>
+        
+        <div class="success">
+            <strong>I can see your API is working!</strong><br>
+            Your worker-master-leave API is returning perfect data with type_id_0 (Location) and type_id_1 (Department).
+            We just need to extract the JWT token that's already working in your browser.
+        </div>
+        
+        <h3>Step 1: Copy JWT Token from Network Tab</h3>
+        <p>From your DevTools Network tab:</p>
+        <ol>
+            <li>Find the "worker-master-leave" request</li>
+            <li>Click on it to see details</li>
+            <li>Go to "Headers" tab</li>
+            <li>Find "Authorization: Bearer [long token]"</li>
+            <li>Copy everything after "Bearer " (just the token part)</li>
+        </ol>
+        
+        <input type="text" id="tokenInput" placeholder="Paste the JWT token here (without 'Bearer ' prefix)" />
+        <button onclick="saveToken()">Save Token & Fix Location/Department</button>
+        
+        <div id="result"></div>
+        
+        <h3>Step 2: Test & Navigate</h3>
+        <button onclick="testAPI()">Test API with Token</button>
+        <button onclick="goToHRReport()">Go to HR Report</button>
+    </div>
+    
+    <script>
+    function saveToken() {
+        const token = document.getElementById('tokenInput').value.trim();
+        const result = document.getElementById('result');
+        
+        if (!token) {
+            result.innerHTML = '<div class="error">Please paste the JWT token first</div>';
+            return;
+        }
+        
+        // Save the token
+        localStorage.setItem('jwt_token', token);
+        localStorage.setItem('org_id', '13');
+        localStorage.setItem('user_id', '225');
+        localStorage.setItem('role', 'admin');
+        
+        result.innerHTML = '<div class="success">✅ JWT token saved! Location and Department should now work in HR Report.</div>';
+    }
+    
+    async function testAPI() {
+        const token = localStorage.getItem('jwt_token');
+        const result = document.getElementById('result');
+        
+        if (!token) {
+            result.innerHTML = '<div class="error">Please save the JWT token first</div>';
+            return;
+        }
+        
+        result.innerHTML = '<div>Testing API...</div>';
+        
+        try {
+            const response = await fetch('https://apiv1.resolvepay.in/reports/worker-master-leave', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    userBlocks: [1, 3, 4],
+                    userWise: 0,
+                    workerType: 0,
+                    attribute: 0,
+                    subAttributeId: 0
+                })
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                const employees = data.data?.data || [];
+                
+                result.innerHTML = '<div class="success">✅ API working! Found ' + employees.length + ' employees with Location/Department data.</div>';
+                
+                if (employees.length > 0) {
+                    const sample = employees[0];
+                    result.innerHTML += '<div>Sample data:<br>' +
+                        'Employee: ' + sample.user_name + '<br>' +
+                        'Location: ' + sample.type_id_0 + '<br>' +
+                        'Department: ' + sample.type_id_1 + '</div>';
+                }
+            } else {
+                result.innerHTML = '<div class="error">API Error: ' + response.status + '</div>';
+            }
+        } catch (error) {
+            result.innerHTML = '<div class="error">Error: ' + error.message + '</div>';
+        }
+    }
+    
+    function goToHRReport() {
+        const token = localStorage.getItem('jwt_token');
+        if (!token) {
+            document.getElementById('result').innerHTML = '<div class="error">Please save the JWT token first</div>';
+            return;
+        }
+        
+        // Navigate to HR Report
+        window.location.href = '/reports/admin-reports/leave-balances';
+    }
+    
+    // Check current status
+    window.onload = function() {
+        const token = localStorage.getItem('jwt_token');
+        const result = document.getElementById('result');
+        
+        if (token) {
+            result.innerHTML = '<div class="success">JWT token already exists. You can test the API or go to HR Report.</div>';
+        } else {
+            result.innerHTML = '<div>Please paste the JWT token from your DevTools Network tab.</div>';
+        }
+    }
+    </script>
+</body>
+</html>

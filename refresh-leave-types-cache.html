@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Refresh Leave Types Cache</title>
+</head>
+<body>
+    <script>
+        // Force refresh of leave types cache after configuration changes
+        console.log('🔄 Forcing cache refresh for leave types...');
+        
+        // Clear any cached data in browser
+        if ('caches' in window) {
+            caches.keys().then(function(names) {
+                for (let name of names)
+                    caches.delete(name);
+            });
+        }
+        
+        // Navigate back to leave applications to trigger fresh data fetch
+        setTimeout(() => {
+            window.location.href = '/leave-applications';
+        }, 1000);
+    </script>
+</body>
+</html>

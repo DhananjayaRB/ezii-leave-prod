@@ -162,6 +162,19 @@ export default function EmployeeReports() {
         const monthsCompleted = currentMonth - 1;
         const annualEntitlement = totalEntitlementInDays || variant.annualLeaveAllocation || 0;
         eligibility = (annualEntitlement / 12) * monthsCompleted;
+        
+        // Debug logging for Earned Leave calculation
+        if (variant.leaveTypeName?.toLowerCase().includes('earned')) {
+          console.log(`🔍 [ELIGIBILITY DEBUG - After Earning] ${variant.leaveTypeName}:`, {
+            currentMonth,
+            monthsCompleted,
+            totalEntitlementInDays,
+            annualLeaveAllocation: variant.annualLeaveAllocation,
+            annualEntitlement,
+            eligibility: eligibility.toFixed(2),
+            formula: `(${annualEntitlement} / 12) * ${monthsCompleted} = ${eligibility.toFixed(2)}`
+          });
+        }
       } else {
         // "In Advance" - check grant frequency
         const annualEntitlement = totalEntitlementInDays || variant.annualLeaveAllocation || 0;
@@ -172,9 +185,35 @@ export default function EmployeeReports() {
           const currentMonth = new Date().getMonth() + 1;
           eligibility = (annualEntitlement / 12) * currentMonth;
         }
+        
+        // Debug logging for Earned Leave calculation
+        if (variant.leaveTypeName?.toLowerCase().includes('earned')) {
+          console.log(`🔍 [ELIGIBILITY DEBUG - In Advance] ${variant.leaveTypeName}:`, {
+            currentMonth,
+            totalEntitlementInDays,
+            annualLeaveAllocation: variant.annualLeaveAllocation,
+            annualEntitlement,
+            grantFrequency: variant.grantFrequency,
+            eligibility: eligibility.toFixed(2),
+            formula: variant.grantFrequency === 'per_year' ? 
+              `${annualEntitlement} (full year)` : 
+              `(${annualEntitlement} / 12) * ${currentMonth} = ${eligibility.toFixed(2)}`
+          });
+        }
       }
       
       const totalEligibility = eligibility + openingBalance;
+      
+      // Debug logging for total eligibility calculation
+      if (variant.leaveTypeName?.toLowerCase().includes('earned')) {
+        console.log(`🔍 [TOTAL ELIGIBILITY DEBUG] ${variant.leaveTypeName}:`, {
+          eligibility: eligibility.toFixed(2),
+          openingBalance: openingBalance.toFixed(2),
+          totalEligibility: totalEligibility.toFixed(2),
+          openingBalanceTransactions: openingBalanceTransactions.length,
+          formula: `${eligibility.toFixed(2)} + ${openingBalance.toFixed(2)} = ${totalEligibility.toFixed(2)}`
+        });
+      }
       
       // Calculate availed using same logic as LeaveApplications
       const isBeforeWorkflow = variant.leaveBalanceDeductionBefore === true;

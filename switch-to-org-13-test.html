@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Switch to Org 13</title>
+</head>
+<body>
+    <h1>Switch to Organization 13</h1>
+    <p>Click the button below to switch to org_id 13 and test the HR report duplicate fix.</p>
+    <button onclick="switchOrg()">Switch to Org 13</button>
+    
+    <script>
+        function switchOrg() {
+            // Switch to org_id 13 where the HR data exists
+            localStorage.setItem('org_id', '13');
+            localStorage.setItem('user_id', '225'); // User with duplicate issue
+            
+            // Reload to apply changes
+            window.location.href = '/admin-reports/leave-balances';
+        }
+    </script>
+</body>
+</html>

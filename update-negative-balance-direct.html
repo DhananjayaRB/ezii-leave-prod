@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Negative Balance Directly</title>
+</head>
+<body>
+    <script>
+        // Let's update the Casual & Sick Leave type directly via API
+        async function updateNegativeBalance() {
+            try {
+                console.log('🔧 Updating Casual & Sick Leave negative balance to 5 days...');
+                
+                const response = await fetch('/api/leave-types/68', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Org-Id': '13'
+                    },
+                    body: JSON.stringify({
+                        negativeLeaveBalance: 5
+                    })
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('✅ Successfully updated negative balance:', result);
+                    
+                    // Force page refresh to pick up new configuration
+                    setTimeout(() => {
+                        window.location.href = '/leave-applications';
+                    }, 1000);
+                } else {
+                    console.error('❌ Failed to update:', response.status, await response.text());
+                }
+            } catch (error) {
+                console.error('❌ Error updating negative balance:', error);
+            }
+        }
+        
+        // Run the update
+        updateNegativeBalance();
+    </script>
+</body>
+</html>

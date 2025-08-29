@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigate to Sanjay</title>
+</head>
+<body>
+    <h1>Setting user context for Sanjay Prabhu (241)</h1>
+    <script>
+        // Set the context to Sanjay Prabhu
+        localStorage.setItem('user_id', '241');
+        localStorage.setItem('org_id', '13');
+        
+        console.log('Set user_id to 241 (Sanjay Prabhu)');
+        console.log('Set org_id to 13');
+        
+        // Redirect to Leave Applications
+        setTimeout(() => {
+            window.location.href = '/leave-applications';
+        }, 1000);
+    </script>
+</body>
+</html>

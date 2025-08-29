@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Sanjay Balance</title>
+</head>
+<body>
+    <h1>Testing Sanjay's Opening Balance</h1>
+    <script>
+        // Set context to Sanjay
+        localStorage.setItem('user_id', '241');
+        localStorage.setItem('org_id', '13');
+        console.log('Set context to Sanjay (241) in org 13');
+        
+        // Navigate to Leave Applications page to trigger debug
+        setTimeout(() => {
+            window.location.href = '/leave-applications';
+        }, 500);
+    </script>
+</body>
+</html>

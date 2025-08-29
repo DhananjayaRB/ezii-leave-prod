@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Extract JWT from Network Requests</title>
+</head>
+<body>
+    <h1>Extract JWT Token from Current Session</h1>
+    <p>This will extract the JWT token that's already working in your browser</p>
+    
+    <button onclick="extractToken()">Extract JWT Token from Current Session</button>
+    <button onclick="checkToken()">Check Current Token</button>
+    <button onclick="testWithExtractedToken()">Test External API</button>
+    
+    <div id="output"></div>
+    
+    <script>
+    function log(message) {
+        const output = document.getElementById('output');
+        output.innerHTML += '<div style="margin: 10px 0; padding: 10px; background: #f5f5f5; border-radius: 4px;">' + message + '</div>';
+        console.log(message);
+    }
+    
+    async function extractToken() {
+        log('🔍 Attempting to extract JWT token from current session...');
+        
+        try {
+            // Method 1: Check if token is in cookies
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                const [name, value] = cookie.trim().split('=');
+                if (name.toLowerCase().includes('token') || name.toLowerCase().includes('jwt') || name.toLowerCase().includes('auth')) {
+                    log('Found token in cookie: ' + name + ' = ' + value.substring(0, 50) + '...');
+                    localStorage.setItem('jwt_token', value);
+                    log('✅ Token saved to localStorage as jwt_token');
+                    return;
+                }
+            }
+            
+            // Method 2: Check sessionStorage
+            for (let i = 0; i < sessionStorage.length; i++) {
+                const key = sessionStorage.key(i);
+                if (key && (key.toLowerCase().includes('token') || key.toLowerCase().includes('jwt') || key.toLowerCase().includes('auth'))) {
+                    const value = sessionStorage.getItem(key);
+                    log('Found token in sessionStorage: ' + key + ' = ' + (value || '').substring(0, 50) + '...');
+                    localStorage.setItem('jwt_token', value);
+                    log('✅ Token saved to localStorage as jwt_token');
+                    return;
+                }
+            }
+            
+            // Method 3: Try to make a request and intercept the Authorization header
+            log('📡 Making test request to intercept authorization header...');
+            
+            // Override fetch temporarily to capture authorization headers
+            const originalFetch = window.fetch;
+            let capturedToken = null;
+            
+            window.fetch = function(...args) {
+                const [url, options] = args;
+                if (options && options.headers) {
+                    const headers = options.headers;
+                    if (headers.Authorization || headers.authorization) {
+                        const authHeader = headers.Authorization || headers.authorization;
+                        if (authHeader.startsWith('Bearer ')) {
+                            capturedToken = authHeader.substring(7);
+                            log('🎯 Captured JWT token from fetch request!');
+                        }
+                    }
+                }
+                return originalFetch.apply(this, args);
+            };
+            
+            // Make a request that should include the JWT token
+            try {
+                await fetch('/api/auth/user');
+                if (capturedToken) {
+                    localStorage.setItem('jwt_token', capturedToken);
+                    log('✅ Token extracted and saved to localStorage');
+                }
+            } finally {
+                // Restore original fetch
+                window.fetch = originalFetch;
+            }
+            
+            if (!capturedToken) {
+                log('❌ Could not find JWT token in cookies, sessionStorage, or fetch requests');
+                log('💡 The token might be handled by the Replit authentication system');
+                
+                // Try to extract from browser's actual network requests
+                log('🔧 Alternative: Extract token from browser DevTools Network tab');
+                log('1. Open DevTools > Network tab');
+                log('2. Find a request to worker-master-leave');
+                log('3. Look at Request Headers > Authorization');
+                log('4. Copy the Bearer token (without "Bearer " prefix)');
+                log('5. Paste it here manually');
+                
+                const manualToken = prompt('Paste the JWT token from DevTools (without "Bearer " prefix):');
+                if (manualToken && manualToken.trim()) {
+                    localStorage.setItem('jwt_token', manualToken.trim());
+                    log('✅ Manual token saved to localStorage');
+                }
+            }
+            
+        } catch (error) {
+            log('❌ Error extracting token: ' + error.message);
+        }
+    }
+    
+    function checkToken() {
+        const token = localStorage.getItem('jwt_token');
+        if (token) {
+            log('✅ JWT token exists in localStorage');
+            log('Token length: ' + token.length);
+            log('Token preview: ' + token.substring(0, 50) + '...');
+        } else {
+            log('❌ No JWT token found in localStorage');
+        }
+        
+        log('Current localStorage keys: ' + Object.keys(localStorage).join(', '));
+    }
+    
+    async function testWithExtractedToken() {
+        const token = localStorage.getItem('jwt_token');
+        if (!token) {
+            log('❌ No token available. Please extract token first.');
+            return;
+        }
+        
+        log('🧪 Testing external API with extracted token...');
+        
+        try {
+            const response = await fetch('https://apiv1.resolvepay.in/reports/worker-master-leave', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    userBlocks: [1, 3, 4],
+                    userWise: 0,
+                    workerType: 0,
+                    attribute: 0,
+                    subAttributeId: 0
+                })
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                log('✅ External API test successful!');
+                log('Found ' + (data.data?.data?.length || 0) + ' employees');
+                
+                if (data.data?.data?.length > 0) {
+                    const sample = data.data.data[0];
+                    log('Sample employee data:');
+                    log('- Employee: ' + sample.user_name);
+                    log('- Location (type_id_0): ' + sample.type_id_0);
+                    log('- Department (type_id_1): ' + sample.type_id_1);
+                }
+                
+                log('🎉 Now navigate to HR Report to see Location and Department columns populated!');
+                setTimeout(() => {
+                    window.location.href = '/reports/admin-reports/leave-balances';
+                }, 2000);
+            } else {
+                log('❌ API test failed: ' + response.status + ' - ' + await response.text());
+            }
+        } catch (error) {
+            log('❌ API test error: ' + error.message);
+        }
+    }
+    </script>
+</body>
+</html>

@@ -535,27 +535,31 @@ export default function ImportLeaveData() {
           {/* File Upload */}
           <Card className="mb-6">
             <CardHeader>
-              <CardTitle className="flex items-center justify-between">
-                <span>Upload Data File</span>
-                <div className="flex items-center space-x-2">
+              <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+                <CardTitle>Upload Data File</CardTitle>
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-2">
                   <Button
                     variant="outline"
                     onClick={handleDownloadBalanceTemplate}
-                    className="flex items-center space-x-2"
+                    className="flex items-center justify-center space-x-2 w-full sm:w-auto"
+                    size="sm"
                   >
                     <Download className="w-4 h-4" />
-                    <span>Download Balance Template</span>
+                    <span className="hidden sm:inline">Download Balance Template</span>
+                    <span className="sm:hidden">Balance Template</span>
                   </Button>
                   <Button
                     variant="outline"
                     onClick={handleDownloadTransactionTemplate}
-                    className="flex items-center space-x-2"
+                    className="flex items-center justify-center space-x-2 w-full sm:w-auto"
+                    size="sm"
                   >
                     <Download className="w-4 h-4" />
-                    <span>Download Transaction Template</span>
+                    <span className="hidden sm:inline">Download Transaction Template</span>
+                    <span className="sm:hidden">Transaction Template</span>
                   </Button>
                 </div>
-              </CardTitle>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">

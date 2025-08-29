@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRoute, useLocation } from "wouter";
 import { decodeJWT, storeUserDataFromToken } from "@/lib/jwtUtils";
+import { queryClient } from "@/lib/queryClient";
 
 export default function TokenHandler() {
   const [match, params] = useRoute("/id/:token");
@@ -34,9 +35,23 @@ export default function TokenHandler() {
           console.log('role_name:', localStorage.getItem('role_name'));
           console.log('===================================');
           
-          // Redirect to home page - the app will handle setup check
-          console.log('Redirecting to home page...');
-          setLocation('/');
+          // Force authentication state to update
+          queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
+          
+          // Wait a moment for auth state to update, then redirect based on role
+          setTimeout(() => {
+            const role = localStorage.getItem('role_name') || localStorage.getItem('role') || 'employee';
+            console.log('User role:', role);
+            
+            // Admin and manager roles go to Admin Overview, others go to My Dashboard
+            if (role.toLowerCase() === 'admin' || role.toLowerCase() === 'manager') {
+              console.log('Redirecting admin/manager to Admin Overview...');
+              setLocation('/overview');
+            } else {
+              console.log('Redirecting employee to My Dashboard...');
+              setLocation('/employee-overview');
+            }
+          }, 500); // Increased delay to allow auth query to complete
         });
       } else {
         console.error('Failed to decode JWT token');

@@ -138,7 +138,8 @@ const fetchEmployeesFromAPI = async (filters?: FilterState): Promise<Employee[]>
       "workerTypeId": filters?.workerTypeIds || [],
       "AttributeFilters": attributeFilters,
       "isActive": filters?.userType ?? 2, // 0 = Inactive, 1 = Active, 2 = All
-      "patternId": filters?.patternId || 0
+      "patternId": filters?.patternId || 0,
+      "onlyUnAssigned": true
     };
     
     console.log('[ExternalAPI] New payload structure:');
@@ -146,6 +147,7 @@ const fetchEmployeesFromAPI = async (filters?: FilterState): Promise<Employee[]>
     console.log('- AttributeFilters:', payload.AttributeFilters);
     console.log('- isActive:', payload.isActive);
     console.log('- patternId:', payload.patternId);
+    console.log('- onlyUnAssigned:', payload.onlyUnAssigned);
     console.log('[ExternalAPI] Full request payload:', JSON.stringify(payload, null, 2));
     
     // Call the new employees API endpoint

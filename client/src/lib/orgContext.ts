@@ -78,7 +78,7 @@ export class OrgContext {
     if (!hasJWTData && !localStorage.getItem(ORG_ID_KEY)) {
       console.log('[OrgContext] No JWT data found, setting default org_id to 60');
       localStorage.setItem(ORG_ID_KEY, '60');
-      localStorage.setItem(USER_ID_KEY, '1435');
+      // Do not set default user_id - let JWT token be authoritative
     } else {
       console.log('[OrgContext] Found existing data - org_id:', localStorage.getItem(ORG_ID_KEY), 'role:', localStorage.getItem(ROLE_NAME_KEY));
     }
@@ -93,9 +93,8 @@ export class OrgContext {
   }): void {
     if (typeof window === 'undefined') return;
     
-    // Use JWT token user_id or preserve existing
-    const existingUserId = localStorage.getItem(USER_ID_KEY);
-    const userIdToSet = existingUserId || data.user_id;
+    // Always use JWT token user_id as authoritative source
+    const userIdToSet = data.user_id;
     
     console.log('[OrgContext] Setting JWT data:', {
       org_id: data.org_id,

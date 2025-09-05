@@ -2433,6 +2433,55 @@ export default function LeaveApplications() {
               </DialogHeader>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Apply on behalf checkbox - Moved to top for better UX */}
+                  {permissions?.permissions?.allowOnBehalf?.leave === true && (
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          name="applyOnBehalf" 
+                          id="applyOnBehalf"
+                          checked={applyOnBehalf}
+                          onCheckedChange={(checked) => {
+                            setApplyOnBehalf(!!checked);
+                            if (!checked) {
+                              setSelectedEmployeeId("");
+                            }
+                          }}
+                        />
+                        <Label htmlFor="applyOnBehalf" className="text-sm">
+                          Apply on behalf of someone else
+                        </Label>
+                      </div>
+
+                      {/* Employee dropdown - only show when checkbox is checked */}
+                      {applyOnBehalf && (
+                        <div>
+                          <Label htmlFor="employee" className="text-sm font-medium text-gray-700">
+                            Select Employee *
+                          </Label>
+                          <Select
+                            value={selectedEmployeeId}
+                            onValueChange={setSelectedEmployeeId}
+                          >
+                            <SelectTrigger className="mt-1">
+                              <SelectValue placeholder="Select an employee" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {externalEmployees.map((employee) => (
+                                <SelectItem
+                                  key={employee.user_id}
+                                  value={employee.user_id}
+                                >
+                                  {employee.user_name || `${employee.first_name || ''} ${employee.last_name || ''}`.trim() || employee.employee_number || `Employee ${employee.user_id}`}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   {/* Leave Type */}
                   <div>
                     <Label htmlFor="leaveType" className="text-sm font-medium text-gray-700">
@@ -2820,54 +2869,6 @@ export default function LeaveApplications() {
                     </div>
                   )}
 
-                  {/* Apply on behalf checkbox */}
-                  {permissions?.permissions?.allowOnBehalf?.leave === true && (
-                    <div className="space-y-3">
-                      <div className="flex items-center space-x-2">
-                        <Checkbox 
-                          name="applyOnBehalf" 
-                          id="applyOnBehalf"
-                          checked={applyOnBehalf}
-                          onCheckedChange={(checked) => {
-                            setApplyOnBehalf(!!checked);
-                            if (!checked) {
-                              setSelectedEmployeeId("");
-                            }
-                          }}
-                        />
-                        <Label htmlFor="applyOnBehalf" className="text-sm">
-                          Apply on behalf of someone else
-                        </Label>
-                      </div>
-
-                      {/* Employee dropdown - only show when checkbox is checked */}
-                      {applyOnBehalf && (
-                        <div>
-                          <Label htmlFor="employee" className="text-sm font-medium text-gray-700">
-                            Select Employee *
-                          </Label>
-                          <Select
-                            value={selectedEmployeeId}
-                            onValueChange={setSelectedEmployeeId}
-                          >
-                            <SelectTrigger className="mt-1">
-                              <SelectValue placeholder="Select an employee" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {externalEmployees.map((employee) => (
-                                <SelectItem
-                                  key={employee.user_id}
-                                  value={employee.user_id}
-                                >
-                                  {employee.user_name || `${employee.first_name || ''} ${employee.last_name || ''}`.trim() || employee.employee_number || `Employee ${employee.user_id}`}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      )}
-                    </div>
-                  )}
 
                   {/* Reason and Description */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -2905,18 +2906,6 @@ export default function LeaveApplications() {
                         placeholder="State the reason for your leave request"
                         className="mt-1 min-h-[100px]"
                       />
-                    </div>
-                  </div>
-
-
-
-                  {/* Assign Tasks */}
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <Label className="text-sm font-medium text-gray-700">Assign Tasks</Label>
-                      <Button type="button" variant="ghost" className="text-green-600">
-                        <Plus className="w-4 h-4" />
-                      </Button>
                     </div>
                   </div>
 

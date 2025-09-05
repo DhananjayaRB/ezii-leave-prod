@@ -213,10 +213,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Auth routes with first-login balance calculation
+  // Auth routes with first-login balance calculation
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
     try {
       // In development mode, return mock user data
-      if (process.env.NODE_ENV === 'development') {
+      const sendHardCodedUser = true;
+      if (sendHardCodedUser) {
         const mockUser = {
           id: '12080',
           email: 'rahul.sharma@company.com',
@@ -229,47 +231,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.json(mockUser);
       }
 
-      // Try to get userId from req.user.claims.sub, fallback to mock if missing
-      let userId;
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      
+      // Get org_id with proper error handling
+      let orgId;
       try {
-        userId = req.user?.claims?.sub;
-      } catch (e) {
-        userId = undefined;
+        orgId = getOrgIdFromHeaders(req);
+      } catch (orgError) {
+        console.error("Error getting org_id from headers:", orgError);
+        return res.status(400).json({ message: orgError.message });
       }
-      const orgId = parseInt(req.headers['x-org-id'] as string) || 60;
-      let user = undefined;
-      if (userId) {
-        user = await storage.getUser(userId);
-      }
-      // If user not found, return mock user
-      if (!user) {
-        const mockUser = {
-          id: '12080',
-          email: 'rahul.sharma@company.com',
-          firstName: 'Rahul',
-          lastName: 'Sharma',
-          profileImageUrl: null,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        };
-        return res.json(mockUser);
-      }
+      
       // First-login balance calculation trigger
       await calculateBalancesOnFirstLogin(userId, orgId, req);
+      
       res.json(user);
     } catch (error) {
       console.error("Error fetching user:", error);
-      // On error, return mock user as fallback
-      const mockUser = {
-        id: '12080',
-        email: 'rahul.sharma@company.com',
-        firstName: 'Rahul',
-        lastName: 'Sharma',
-        profileImageUrl: null,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
-      res.json(mockUser);
+      res.status(500).json({ message: "Failed to fetch user" });
     }
   });
 

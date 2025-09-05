@@ -1,0 +1,1 @@
+export const RESOLVE_PAY_API = "https://apiv1.resolvepay.in"

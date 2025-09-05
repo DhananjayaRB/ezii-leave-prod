@@ -1,8 +1,8 @@
 {
   "info": {
-    "name": "Eziileave API - Complete Collection (107 Endpoints)",
-    "description": "Complete API collection for Eziileave Leave Management System with all 107 endpoints from server/routes.ts, organized across 27 logical sections for comprehensive testing and integration",
-    "version": "2.0.0",
+    "name": "Eziileave API - Complete Collection (120+ Endpoints)",
+    "description": "Complete API collection for Eziileave Leave Management System with all 120+ endpoints from server/routes.ts, organized across 30+ logical sections for comprehensive testing and integration",
+    "version": "3.0.0",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -13,12 +13,12 @@
     },
     {
       "key": "orgId",
-      "value": "38",
+      "value": "60",
       "type": "string"
     },
     {
       "key": "userId",
-      "value": "2161",
+      "value": "12080",
       "type": "string"
     },
     {
@@ -28,12 +28,12 @@
     },
     {
       "key": "leaveRequestId",
-      "value": "2314",
+      "value": "1",
       "type": "string"
     },
     {
       "key": "taskId",
-      "value": "8",
+      "value": "1",
       "type": "string"
     },
     {
@@ -69,14 +69,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/auth/user",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "user"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "user"]
             },
             "description": "Get authenticated user with first-login balance calculation"
           }
@@ -94,13 +88,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/login",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "login"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "login"]
             },
             "description": "Initiate authentication flow"
           }
@@ -118,13 +107,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/logout",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "logout"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "logout"]
             },
             "description": "End session"
           }
@@ -142,13 +126,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/callback",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "callback"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "callback"]
             },
             "description": "OAuth callback"
           }
@@ -171,13 +150,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/company",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "company"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "company"]
             },
             "description": "Get company information"
           }
@@ -200,13 +174,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/company",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "company"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "company"]
             },
             "description": "Create company",
             "body": {
@@ -233,14 +202,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/company/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "company",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "company", "1"]
             },
             "description": "Update company",
             "body": {
@@ -267,15 +230,10 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/users",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "users"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users"]
             },
-            "description": "Get all users"
+            "description": "Get all users from external API"
           }
         },
         {
@@ -291,15 +249,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/users/{{userId}}/roles",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "users",
-                "{{userId}}",
-                "roles"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "{{userId}}", "roles"]
             },
             "description": "Get user roles"
           }
@@ -322,15 +273,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/users/{{userId}}/roles",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "users",
-                "{{userId}}",
-                "roles"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "{{userId}}", "roles"]
             },
             "description": "Assign user role",
             "body": {
@@ -352,16 +296,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/users/{{userId}}/roles/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "users",
-                "{{userId}}",
-                "roles",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "{{userId}}", "roles", "1"]
             },
             "description": "Remove user role"
           }
@@ -379,15 +315,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/users/{{userId}}/permissions",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "users",
-                "{{userId}}",
-                "permissions"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "{{userId}}", "permissions"]
             },
             "description": "Get user permissions"
           }
@@ -410,13 +339,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/roles",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "roles"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "roles"]
             },
             "description": "Get all roles"
           }
@@ -439,13 +363,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/roles",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "roles"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "roles"]
             },
             "description": "Create role",
             "body": {
@@ -472,14 +391,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/roles/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "roles",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "roles", "1"]
             },
             "description": "Update role",
             "body": {
@@ -501,14 +414,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/roles/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "roles",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "roles", "1"]
             },
             "description": "Delete role"
           }
@@ -531,13 +438,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/leave-types",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-types"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-types"]
             },
             "description": "Get leave types"
           }
@@ -560,13 +462,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/leave-types",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-types"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-types"]
             },
             "description": "Create leave type",
             "body": {
@@ -593,14 +490,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/leave-types/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-types",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-types", "1"]
             },
             "description": "Update leave type",
             "body": {
@@ -622,14 +513,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/leave-types/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-types",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-types", "1"]
             },
             "description": "Delete leave type"
           }
@@ -651,14 +536,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/leave-variants",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-variants"
-              ],
+              "raw": "{{baseUrl}}/api/leave-variants?leaveTypeId=53",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-variants"],
               "query": [
                 {
                   "key": "leaveTypeId",
@@ -687,13 +567,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/leave-variants",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-variants"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-variants"]
             },
             "description": "Create leave variant",
             "body": {
@@ -720,14 +595,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/leave-variants/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-variants",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-variants", "1"]
             },
             "description": "Update leave variant",
             "body": {
@@ -749,14 +618,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/leave-variants/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-variants",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-variants", "1"]
             },
             "description": "Delete leave variant"
           }
@@ -779,13 +642,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/employee-assignments",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "employee-assignments"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "employee-assignments"]
             },
             "description": "Get employee assignments"
           }
@@ -803,72 +661,14 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/employee-assignments/57",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "employee-assignments",
-                "57"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "employee-assignments", "57"]
             },
-            "description": "Get assignments for variant"
+            "description": "Get assignments for specific leave variant"
           }
         },
         {
-          "name": "Get PTO Assignments",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/employee-assignments/pto/57",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "employee-assignments",
-                "pto",
-                "57"
-              ]
-            },
-            "description": "Get PTO assignments"
-          }
-        },
-        {
-          "name": "Get Comp-Off Assignments",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/employee-assignments/comp-off-variant/57",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "employee-assignments",
-                "comp-off-variant",
-                "57"
-              ]
-            },
-            "description": "Get comp-off assignments"
-          }
-        },
-        {
-          "name": "Bulk Create Assignments",
+          "name": "Create Employee Assignment",
           "request": {
             "method": "POST",
             "header": [
@@ -884,32 +684,21 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/employee-assignments/bulk",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "employee-assignments",
-                "bulk"
-              ]
+              "raw": "{{baseUrl}}/api/employee-assignments",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "employee-assignments"]
             },
-            "description": "Bulk create assignments",
+            "description": "Create employee assignment",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"assignments\": [\n    {\n      \"userId\": \"2161\",\n      \"leaveVariantId\": 57,\n      \"assignmentType\": \"leave_variant\"\n    }\n  ]\n}"
+              "raw": "{\n  \"userId\": \"12080\",\n  \"leaveVariantId\": 57,\n  \"assignmentType\": \"leave_variant\"\n}"
             }
           }
-        }
-      ]
-    },
-    {
-      "name": "08. Leave Balances",
-      "item": [
+        },
         {
-          "name": "Get All Leave Balances",
+          "name": "Delete Employee Assignment",
           "request": {
-            "method": "GET",
+            "method": "DELETE",
             "header": [
               {
                 "key": "X-Org-Id",
@@ -918,101 +707,15 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/employee-leave-balances/all",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "employee-leave-balances",
-                "all"
-              ]
+              "raw": "{{baseUrl}}/api/employee-assignments/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "employee-assignments", "1"]
             },
-            "description": "Get all leave balances"
+            "description": "Delete employee assignment"
           }
         },
         {
-          "name": "Get User Leave Balances",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/employee-leave-balances/{{userId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "employee-leave-balances",
-                "{{userId}}"
-              ]
-            },
-            "description": "Get user leave balances"
-          }
-        },
-        {
-          "name": "Get All Transactions",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/leave-balance-transactions/all",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-balance-transactions",
-                "all"
-              ]
-            },
-            "description": "Get all transactions"
-          }
-        },
-        {
-          "name": "Get User Transactions",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/leave-balance-transactions/{{userId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-balance-transactions",
-                "{{userId}}"
-              ]
-            },
-            "description": "Get user transactions"
-          }
-        }
-      ]
-    },
-    {
-      "name": "09. Balance Calculations",
-      "item": [
-        {
-          "name": "Compute Leave Balances",
+          "name": "Create Multiple Employee Assignments",
           "request": {
             "method": "POST",
             "header": [
@@ -1028,170 +731,21 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/compute-leave-balances",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "compute-leave-balances"
-              ]
+              "raw": "{{baseUrl}}/api/employee-assignments/multiple",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "employee-assignments", "multiple"]
             },
-            "description": "Compute leave balances",
+            "description": "Create multiple employee assignments",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"year\": 2025\n}"
+              "raw": "{\n  \"leaveVariantId\": 57,\n  \"userIds\": [\"12080\", \"12081\", \"12082\"]\n}"
             }
-          }
-        },
-        {
-          "name": "Recalculate Pro-rata Balances",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/recalculate-prorata-balances",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "recalculate-prorata-balances"
-              ]
-            },
-            "description": "Recalculate pro-rata balances"
-          }
-        },
-        {
-          "name": "Fix Missing Balances",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/fix-missing-balances",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "fix-missing-balances"
-              ]
-            },
-            "description": "Fix missing balances"
-          }
-        },
-        {
-          "name": "Recalculate Leave Balances",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/recalculate-leave-balances",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "recalculate-leave-balances"
-              ]
-            },
-            "description": "Recalculate leave balances"
-          }
-        },
-        {
-          "name": "Fix Pro-rata Balances",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/fix-prorata-balances",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "fix-prorata-balances"
-              ]
-            },
-            "description": "Fix pro-rata balances"
-          }
-        },
-        {
-          "name": "Force After Earning Transaction",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/force-after-earning-transaction",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "force-after-earning-transaction"
-              ]
-            },
-            "description": "Force after earning transaction"
-          }
-        },
-        {
-          "name": "Calculate All Balances",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/calculate-all-balances",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "calculate-all-balances"
-              ]
-            },
-            "description": "Calculate all balances"
           }
         }
       ]
     },
     {
-      "name": "10. Workflows",
+      "name": "08. Workflows Management",
       "item": [
         {
           "name": "Get Workflows",
@@ -1206,13 +760,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/workflows",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "workflows"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "workflows"]
             },
             "description": "Get workflows"
           }
@@ -1235,18 +784,13 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/workflows",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "workflows"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "workflows"]
             },
             "description": "Create workflow",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Leave Approval\",\n  \"processType\": \"Application\",\n  \"subProcessType\": \"Apply Leave\",\n  \"reviewSteps\": [\n    {\n      \"title\": \"Manager Review\",\n      \"roles\": [\n        1\n      ],\n      \"autoApproval\": false\n    }\n  ]\n}"
+              "raw": "{\n  \"name\": \"Leave Approval Workflow\",\n  \"description\": \"Standard leave approval process\",\n  \"process\": \"application\",\n  \"subProcesses\": [\"apply-leave\"],\n  \"steps\": [\n    {\n      \"stepNumber\": 1,\n      \"stepName\": \"Manager Review\",\n      \"reviewerType\": \"manager\",\n      \"autoApproval\": false\n    }\n  ]\n}"
             }
           }
         },
@@ -1268,19 +812,13 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/workflows/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "workflows",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "workflows", "1"]
             },
             "description": "Update workflow",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Updated Workflow\"\n}"
+              "raw": "{\n  \"description\": \"Updated leave approval process\"\n}"
             }
           }
         },
@@ -1297,14 +835,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/workflows/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "workflows",
-                "1"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "workflows", "1"]
             },
             "description": "Delete workflow"
           }
@@ -1312,10 +844,10 @@
       ]
     },
     {
-      "name": "11. Comp-Off Config",
+      "name": "09. Leave Requests Management",
       "item": [
         {
-          "name": "Get Comp-Off Config",
+          "name": "Get Leave Requests",
           "request": {
             "method": "GET",
             "header": [
@@ -1326,16 +858,781 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/comp-off-config",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "comp-off-config"
+              "raw": "{{baseUrl}}/api/leave-requests",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-requests"]
+            },
+            "description": "Get leave requests"
+          }
+        },
+        {
+          "name": "Get Leave Requests for User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leave-requests/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-requests", "{{userId}}"]
+            },
+            "description": "Get leave requests for specific user"
+          }
+        },
+        {
+          "name": "Create Leave Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leave-requests",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-requests"]
+            },
+            "description": "Create leave request",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"leaveTypeId\": 53,\n  \"startDate\": \"2025-02-01\",\n  \"endDate\": \"2025-02-03\",\n  \"totalDays\": 3,\n  \"workingDays\": 3,\n  \"reason\": \"Family vacation\",\n  \"documents\": []\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Leave Request",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leave-requests/{{leaveRequestId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-requests", "{{leaveRequestId}}"]
+            },
+            "description": "Update leave request",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Updated reason for leave\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Patch Leave Request",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leave-requests/{{leaveRequestId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-requests", "{{leaveRequestId}}"]
+            },
+            "description": "Patch leave request",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"approved\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Leave Request",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leave-requests/{{leaveRequestId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-requests", "{{leaveRequestId}}"]
+            },
+            "description": "Delete leave request"
+          }
+        },
+        {
+          "name": "Withdraw Leave Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leave-requests/{{leaveRequestId}}/withdraw",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-requests", "{{leaveRequestId}}", "withdraw"]
+            },
+            "description": "Withdraw approved leave request",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Emergency cancellation\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Approve Leave Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leave-requests/{{leaveRequestId}}/approve",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-requests", "{{leaveRequestId}}", "approve"]
+            },
+            "description": "Approve leave request",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"comment\": \"Approved by manager\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Reject Leave Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leave-requests/{{leaveRequestId}}/reject",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-requests", "{{leaveRequestId}}", "reject"]
+            },
+            "description": "Reject leave request",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rejectionReason\": \"Insufficient leave balance\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "10. Leave Balances & Transactions",
+      "item": [
+        {
+          "name": "Get Employee Leave Balances",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/employee-leave-balances?year=2025",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "employee-leave-balances"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2025"
+                }
               ]
             },
-            "description": "Get comp-off configuration"
+            "description": "Get employee leave balances"
+          }
+        },
+        {
+          "name": "Get All Employee Leave Balances",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/employee-leave-balances/all?year=2025",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "employee-leave-balances", "all"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2025"
+                }
+              ]
+            },
+            "description": "Get all employee leave balances for HR reports"
+          }
+        },
+        {
+          "name": "Create Employee Leave Balance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/employee-leave-balances",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "employee-leave-balances"]
+            },
+            "description": "Create employee leave balance",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"leaveVariantId\": 57,\n  \"year\": 2025,\n  \"totalEntitlement\": 18,\n  \"currentBalance\": 18,\n  \"usedBalance\": 0\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Employee Leave Balance",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/employee-leave-balances/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "employee-leave-balances", "1"]
+            },
+            "description": "Update employee leave balance",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentBalance\": 15,\n  \"usedBalance\": 3\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Leave Balance Transactions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leave-balance-transactions/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-balance-transactions", "{{userId}}"]
+            },
+            "description": "Get leave balance transactions for user"
+          }
+        },
+        {
+          "name": "Get All Leave Balance Transactions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leave-balance-transactions/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-balance-transactions", "all"]
+            },
+            "description": "Get all leave balance transactions"
+          }
+        },
+        {
+          "name": "Create Leave Balance Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leave-balance-transactions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-balance-transactions"]
+            },
+            "description": "Create leave balance transaction",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"leaveVariantId\": 57,\n  \"transactionType\": \"credit\",\n  \"amount\": 5,\n  \"description\": \"Monthly leave credit\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "11. Balance Management Operations",
+      "item": [
+        {
+          "name": "Compute Initial Leave Balances",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/compute-leave-balances",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compute-leave-balances"]
+            },
+            "description": "Compute initial leave balances for setup"
+          }
+        },
+        {
+          "name": "Recalculate Pro-rata Balances",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/recalculate-prorata-balances",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "recalculate-prorata-balances"]
+            },
+            "description": "Recalculate pro-rata balances for mid-year joiners",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalEmployeeData\": []\n}"
+            }
+          }
+        },
+        {
+          "name": "Fix Missing Leave Balances",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/fix-missing-balances",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "fix-missing-balances"]
+            },
+            "description": "Fix missing leave balances for users with approved requests"
+          }
+        },
+        {
+          "name": "Recalculate Leave Balances",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/recalculate-leave-balances",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "recalculate-leave-balances"]
+            },
+            "description": "Recalculate leave balances with After Earning logic"
+          }
+        },
+        {
+          "name": "Fix Balance Calculations",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/fix-balance-calculations",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "fix-balance-calculations"]
+            },
+            "description": "Fix existing balance records with incorrect calculations"
+          }
+        },
+        {
+          "name": "Fix Pro-rata Balances",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/fix-prorata-balances",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "fix-prorata-balances"]
+            },
+            "description": "Fix pro-rata balances based on actual joining dates",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"joiningDate\": \"2024-06-15\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "12. Data Cleanup Operations",
+      "item": [
+        {
+          "name": "Cleanup All Data",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/cleanup-all-data",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "cleanup-all-data"]
+            },
+            "description": "Delete all leave transactions and requests for testing"
+          }
+        },
+        {
+          "name": "Delete Transaction Data",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/delete-transaction-data",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "delete-transaction-data"]
+            },
+            "description": "Delete transaction template data from database"
+          }
+        },
+        {
+          "name": "Clear Imported Data",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/clear-imported-data",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clear-imported-data"]
+            },
+            "description": "Clear all imported transaction data"
+          }
+        }
+      ]
+    },
+    {
+      "name": "13. Data Import Operations",
+      "item": [
+        {
+          "name": "Validate Import Data",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/import-leave-data/validate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "import-leave-data", "validate"]
+            },
+            "description": "Validate Excel/CSV import data",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "importType",
+                  "value": "balances",
+                  "type": "text"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Import Leave Data",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/import-leave-data",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "import-leave-data"]
+            },
+            "description": "Import leave data from Excel/CSV",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "importType",
+                  "value": "balances",
+                  "type": "text"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Test Transaction Import",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/test-transaction-import",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "test-transaction-import"]
+            },
+            "description": "Test transaction import functionality"
+          }
+        },
+        {
+          "name": "Fix Excel Import Transactions",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/fix-excel-import-transactions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "fix-excel-import-transactions"]
+            },
+            "description": "Fix broken Excel import by creating missing transactions"
+          }
+        }
+      ]
+    },
+    {
+      "name": "14. Document Management",
+      "item": [
+        {
+          "name": "Upload Documents",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/upload-documents",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "upload-documents"]
+            },
+            "description": "Upload supporting documents",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "documents",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Document",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/uploads/{{fileId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["uploads", "{{fileId}}"]
+            },
+            "description": "Get uploaded document"
+          }
+        }
+      ]
+    },
+    {
+      "name": "15. Comp-Off Management",
+      "item": [
+        {
+          "name": "Get Comp-Off Configs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/comp-off-configs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "comp-off-configs"]
+            },
+            "description": "Get comp-off configurations"
           }
         },
         {
@@ -1355,27 +1652,17 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/comp-off-config",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "comp-off-config"
-              ]
+              "raw": "{{baseUrl}}/api/comp-off-configs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "comp-off-configs"]
             },
-            "description": "Create comp-off config",
+            "description": "Create comp-off configuration",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"enabled\": true,\n  \"maxBalance\": 10,\n  \"carryForwardDays\": 30,\n  \"expiryPeriod\": 365\n}"
+              "raw": "{\n  \"name\": \"Weekend Comp-Off\",\n  \"description\": \"Compensation for weekend work\",\n  \"enabled\": true\n}"
             }
           }
-        }
-      ]
-    },
-    {
-      "name": "12. Comp-Off Variants",
-      "item": [
+        },
         {
           "name": "Get Comp-Off Variants",
           "request": {
@@ -1389,13 +1676,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/comp-off-variants",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "comp-off-variants"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "comp-off-variants"]
             },
             "description": "Get comp-off variants"
           }
@@ -1418,776 +1700,16 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/comp-off-variants",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "comp-off-variants"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "comp-off-variants"]
             },
             "description": "Create comp-off variant",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Standard Comp-Off\",\n  \"description\": \"Standard compensatory off\",\n  \"workflowRequired\": true\n}"
+              "raw": "{\n  \"compOffConfigId\": 1,\n  \"name\": \"Weekend Work\",\n  \"creditRatio\": 1.0,\n  \"maxDaysPerMonth\": 8\n}"
             }
           }
         },
-        {
-          "name": "Update Comp-Off Variant",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/comp-off-variants/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "comp-off-variants",
-                "1"
-              ]
-            },
-            "description": "Update comp-off variant",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Updated Comp-Off\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Delete Comp-Off Variant",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/comp-off-variants/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "comp-off-variants",
-                "1"
-              ]
-            },
-            "description": "Delete comp-off variant"
-          }
-        }
-      ]
-    },
-    {
-      "name": "13. PTO Config & Variants",
-      "item": [
-        {
-          "name": "Get PTO Config",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/pto-config",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pto-config"
-              ]
-            },
-            "description": "Get PTO configuration"
-          }
-        },
-        {
-          "name": "Create PTO Config",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/pto-config",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pto-config"
-              ]
-            },
-            "description": "Create PTO config",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"enabled\": true,\n  \"annualAllowance\": 25\n}"
-            }
-          }
-        },
-        {
-          "name": "Get PTO Variants",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/pto-variants",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pto-variants"
-              ]
-            },
-            "description": "Get PTO variants"
-          }
-        },
-        {
-          "name": "Create PTO Variant",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/pto-variants",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pto-variants"
-              ]
-            },
-            "description": "Create PTO variant",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Personal Time Off\",\n  \"description\": \"Personal time off variant\",\n  \"halfDay\": true,\n  \"hours\": true\n}"
-            }
-          }
-        },
-        {
-          "name": "Update PTO Variant",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/pto-variants/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pto-variants",
-                "1"
-              ]
-            },
-            "description": "Update PTO variant",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Updated PTO\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Delete PTO Variant",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/pto-variants/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pto-variants",
-                "1"
-              ]
-            },
-            "description": "Delete PTO variant"
-          }
-        }
-      ]
-    },
-    {
-      "name": "14. PTO Requests",
-      "item": [
-        {
-          "name": "Get PTO Requests",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/pto-requests",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pto-requests"
-              ]
-            },
-            "description": "Get PTO requests"
-          }
-        },
-        {
-          "name": "Create PTO Request",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/pto-requests",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pto-requests"
-              ]
-            },
-            "description": "Create PTO request",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"ptoVariantId\": 1,\n  \"timeType\": \"half_day\",\n  \"requestDate\": \"2025-08-01\",\n  \"reason\": \"Personal appointment\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Update PTO Request",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/pto-requests/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pto-requests",
-                "1"
-              ]
-            },
-            "description": "Update PTO request",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"reason\": \"Updated reason\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Delete PTO Request",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/pto-requests/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pto-requests",
-                "1"
-              ]
-            },
-            "description": "Delete PTO request"
-          }
-        },
-        {
-          "name": "Approve PTO Request",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/pto-requests/1/approve",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pto-requests",
-                "1",
-                "approve"
-              ]
-            },
-            "description": "Approve PTO request",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"comments\": \"Approved\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Reject PTO Request",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/pto-requests/1/reject",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pto-requests",
-                "1",
-                "reject"
-              ]
-            },
-            "description": "Reject PTO request",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"reason\": \"Rejected\"\n}"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "15. Leave Requests",
-      "item": [
-        {
-          "name": "Get Leave Requests",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/leave-requests",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-requests"
-              ]
-            },
-            "description": "Get leave requests"
-          }
-        },
-        {
-          "name": "Create Leave Request",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/leave-requests",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-requests"
-              ]
-            },
-            "description": "Create leave request",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"leaveVariantId\": 57,\n  \"startDate\": \"2025-08-01\",\n  \"endDate\": \"2025-08-05\",\n  \"reason\": \"Vacation\",\n  \"leaveTypeOption\": \"full_day\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Update Leave Request (PUT)",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/leave-requests/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-requests",
-                "1"
-              ]
-            },
-            "description": "Update leave request with PUT",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"reason\": \"Updated vacation\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Update Leave Request (PATCH)",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/leave-requests/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-requests",
-                "1"
-              ]
-            },
-            "description": "Update leave request with PATCH",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"reason\": \"Patched reason\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Delete Leave Request",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/leave-requests/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-requests",
-                "1"
-              ]
-            },
-            "description": "Delete leave request"
-          }
-        },
-        {
-          "name": "Approve Leave Request",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/leave-requests/1/approve",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-requests",
-                "1",
-                "approve"
-              ]
-            },
-            "description": "Approve leave request",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"comments\": \"Approved by manager\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Reject Leave Request",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/leave-requests/1/reject",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-requests",
-                "1",
-                "reject"
-              ]
-            },
-            "description": "Reject leave request",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"reason\": \"Insufficient balance\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Withdraw Leave Request",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/leave-requests/1/withdraw",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-requests",
-                "1",
-                "withdraw"
-              ]
-            },
-            "description": "Withdraw leave request",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"reason\": \"Personal reasons\"\n}"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "16. Holidays",
-      "item": [
-        {
-          "name": "Get Holidays",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/holidays",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "holidays"
-              ]
-            },
-            "description": "Get holidays"
-          }
-        },
-        {
-          "name": "Create Holiday",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/holidays",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "holidays"
-              ]
-            },
-            "description": "Create holiday",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Independence Day\",\n  \"date\": \"2025-08-15\",\n  \"description\": \"National holiday\"\n}"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "17. Comp-Off Requests",
-      "item": [
         {
           "name": "Get Comp-Off Requests",
           "request": {
@@ -2201,13 +1723,8 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/comp-off-requests",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "comp-off-requests"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "comp-off-requests"]
             },
             "description": "Get comp-off requests"
           }
@@ -2230,78 +1747,14 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/comp-off-requests",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "comp-off-requests"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "comp-off-requests"]
             },
             "description": "Create comp-off request",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"compOffVariantId\": 1,\n  \"actionType\": \"bank\",\n  \"workedDate\": \"2025-07-20\",\n  \"reason\": \"Weekend work\"\n}"
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"compOffVariantId\": 1,\n  \"workDate\": \"2025-01-25\",\n  \"reason\": \"Weekend project work\",\n  \"creditDays\": 1\n}"
             }
-          }
-        },
-        {
-          "name": "Update Comp-Off Request",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/comp-off-requests/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "comp-off-requests",
-                "1"
-              ]
-            },
-            "description": "Update comp-off request",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"reason\": \"Updated reason\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Delete Comp-Off Request",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/comp-off-requests/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "comp-off-requests",
-                "1"
-              ]
-            },
-            "description": "Delete comp-off request"
           }
         },
         {
@@ -2322,20 +1775,13 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/comp-off-requests/1/approve",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "comp-off-requests",
-                "1",
-                "approve"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "comp-off-requests", "1", "approve"]
             },
             "description": "Approve comp-off request",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"comments\": \"Approved\"\n}"
+              "raw": "{\n  \"comment\": \"Approved for weekend work\"\n}"
             }
           }
         },
@@ -2357,30 +1803,23 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/comp-off-requests/1/reject",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "comp-off-requests",
-                "1",
-                "reject"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "comp-off-requests", "1", "reject"]
             },
             "description": "Reject comp-off request",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"reason\": \"Rejected\"\n}"
+              "raw": "{\n  \"rejectionReason\": \"Insufficient documentation\"\n}"
             }
           }
         }
       ]
     },
     {
-      "name": "18. File Management",
+      "name": "16. PTO Management",
       "item": [
         {
-          "name": "Download File",
+          "name": "Get PTO Configs",
           "request": {
             "method": "GET",
             "header": [
@@ -2391,20 +1830,15 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/uploads/{{fileId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "uploads",
-                "{{fileId}}"
-              ]
+              "raw": "{{baseUrl}}/api/pto-configs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pto-configs"]
             },
-            "description": "Download uploaded file"
+            "description": "Get PTO configurations"
           }
         },
         {
-          "name": "Upload Documents",
+          "name": "Create PTO Config",
           "request": {
             "method": "POST",
             "header": [
@@ -2420,108 +1854,19 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/upload-documents",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "upload-documents"
-              ]
+              "raw": "{{baseUrl}}/api/pto-configs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pto-configs"]
             },
-            "description": "Upload documents",
+            "description": "Create PTO configuration",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"description\": \"Supporting documents for leave request\"\n}"
+              "raw": "{\n  \"name\": \"Personal Time Off\",\n  \"description\": \"Flexible time off policy\",\n  \"enabled\": true\n}"
             }
           }
-        }
-      ]
-    },
-    {
-      "name": "19. Data Import",
-      "item": [
-        {
-          "name": "Validate Import Data",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/import-leave-data/validate",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "import-leave-data",
-                "validate"
-              ]
-            },
-            "description": "Validate Excel import data"
-          }
         },
         {
-          "name": "Execute Import Data",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/import-leave-data/execute",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "import-leave-data",
-                "execute"
-              ]
-            },
-            "description": "Execute Excel import data"
-          }
-        }
-      ]
-    },
-    {
-      "name": "20. Time-based Approvals",
-      "item": [
-        {
-          "name": "Process Time-based Approvals",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/process-time-based-approvals",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "process-time-based-approvals"
-              ]
-            },
-            "description": "Process time-based approvals"
-          }
-        },
-        {
-          "name": "Get Pending Time-based Approvals",
+          "name": "Get PTO Variants",
           "request": {
             "method": "GET",
             "header": [
@@ -2532,27 +1877,45 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/pending-time-based-approvals",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pending-time-based-approvals"
-              ]
+              "raw": "{{baseUrl}}/api/pto-variants",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pto-variants"]
             },
-            "description": "Get pending time-based approvals"
+            "description": "Get PTO variants"
           }
-        }
-      ]
-    },
-    {
-      "name": "21. Data Migration",
-      "item": [
+        },
         {
-          "name": "Migrate Employee Data",
+          "name": "Create PTO Variant",
           "request": {
             "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/pto-variants",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pto-variants"]
+            },
+            "description": "Create PTO variant",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ptoConfigId\": 1,\n  \"name\": \"Flexible PTO\",\n  \"allowancePerYear\": 20\n}"
+            }
+          }
+        },
+        {
+          "name": "Get PTO Requests",
+          "request": {
+            "method": "GET",
             "header": [
               {
                 "key": "X-Org-Id",
@@ -2561,22 +1924,206 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/migrate-employee-data",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "migrate-employee-data"
-              ]
+              "raw": "{{baseUrl}}/api/pto-requests",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pto-requests"]
             },
-            "description": "Migrate employee data"
+            "description": "Get PTO requests"
+          }
+        },
+        {
+          "name": "Create PTO Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/pto-requests",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pto-requests"]
+            },
+            "description": "Create PTO request",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"ptoVariantId\": 1,\n  \"startDate\": \"2025-02-01\",\n  \"endDate\": \"2025-02-03\",\n  \"totalDays\": 3,\n  \"reason\": \"Personal time off\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Approve PTO Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/pto-requests/1/approve",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pto-requests", "1", "approve"]
+            },
+            "description": "Approve PTO request",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"comment\": \"PTO approved\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Reject PTO Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/pto-requests/1/reject",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pto-requests", "1", "reject"]
+            },
+            "description": "Reject PTO request",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rejectionReason\": \"Conflicting schedule\"\n}"
+            }
           }
         }
       ]
     },
     {
-      "name": "22. Collaborative Leave Settings",
+      "name": "17. Holidays Management",
+      "item": [
+        {
+          "name": "Get Holidays",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/holidays?year=2025",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "holidays"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2025"
+                }
+              ]
+            },
+            "description": "Get holidays for specific year"
+          }
+        },
+        {
+          "name": "Create Holiday",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/holidays",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "holidays"]
+            },
+            "description": "Create holiday",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Year's Day\",\n  \"date\": \"2025-01-01\",\n  \"isOptional\": false,\n  \"description\": \"New Year celebration\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Holiday",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/holidays/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "holidays", "1"]
+            },
+            "description": "Update holiday",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isOptional\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Holiday",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/holidays/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "holidays", "1"]
+            },
+            "description": "Delete holiday"
+          }
+        }
+      ]
+    },
+    {
+      "name": "18. Collaborative Leave Management",
       "item": [
         {
           "name": "Get Collaborative Leave Settings",
@@ -2591,19 +2138,14 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/collaborative-leave-settings",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "collaborative-leave-settings"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "collaborative-leave-settings"]
             },
             "description": "Get collaborative leave settings"
           }
         },
         {
-          "name": "Update Collaborative Leave Settings (PUT)",
+          "name": "Update Collaborative Leave Settings",
           "request": {
             "method": "PUT",
             "header": [
@@ -2620,61 +2162,18 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/collaborative-leave-settings",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "collaborative-leave-settings"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "collaborative-leave-settings"]
             },
-            "description": "Update collaborative leave settings with PUT",
+            "description": "Update collaborative leave settings",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"enabled\": true,\n  \"maxAssigneesPerRequest\": 5,\n  \"taskCompletionRequired\": true\n}"
+              "raw": "{\n  \"enabled\": true,\n  \"maxTasksPerLeave\": 5,\n  \"requireManagerApproval\": false,\n  \"autoReminderDays\": 1,\n  \"defaultNotificationMethod\": \"email\"\n}"
             }
           }
         },
         {
-          "name": "Update Collaborative Leave Settings (PATCH)",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/collaborative-leave-settings",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "collaborative-leave-settings"
-              ]
-            },
-            "description": "Update collaborative leave settings with PATCH",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"enabled\": false\n}"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "23. Collaborative Tasks",
-      "item": [
-        {
-          "name": "Get Leave Request Tasks",
+          "name": "Get All Collaborative Tasks",
           "request": {
             "method": "GET",
             "header": [
@@ -2685,81 +2184,15 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/leave-requests/{{leaveRequestId}}/tasks",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-requests",
-                "{{leaveRequestId}}",
-                "tasks"
-              ]
-            },
-            "description": "Get tasks for leave request"
-          }
-        },
-        {
-          "name": "Create Leave Request Tasks",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/leave-requests/{{leaveRequestId}}/tasks",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-requests",
-                "{{leaveRequestId}}",
-                "tasks"
-              ]
-            },
-            "description": "Create tasks for leave request",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"tasks\": [\n    {\n      \"assigneeUserId\": \"2162\",\n      \"taskDescription\": \"Cover project meeting\",\n      \"supportDate\": \"2025-08-01\"\n    }\n  ]\n}"
-            }
-          }
-        },
-        {
-          "name": "Get Collaborative Tasks",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/collaborative-tasks",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "collaborative-tasks"
-              ]
+              "raw": "{{baseUrl}}/api/collaborative-tasks/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "collaborative-tasks", "all"]
             },
             "description": "Get all collaborative tasks"
           }
         },
         {
-          "name": "Get My Assigned Tasks",
+          "name": "Get Tasks for Leave Request",
           "request": {
             "method": "GET",
             "header": [
@@ -2770,51 +2203,15 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/my-assigned-tasks",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "my-assigned-tasks"
-              ]
+              "raw": "{{baseUrl}}/api/leave-requests/{{leaveRequestId}}/tasks",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-requests", "{{leaveRequestId}}", "tasks"]
             },
-            "description": "Get my assigned tasks"
-          }
-        }
-      ]
-    },
-    {
-      "name": "24. Public Task Access",
-      "item": [
-        {
-          "name": "Get Public Task",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/public/task/abc123",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "task",
-                "abc123"
-              ]
-            },
-            "description": "Get public task by token"
+            "description": "Get tasks for specific leave request"
           }
         },
         {
-          "name": "Respond to Public Task",
+          "name": "Create Tasks for Leave Request",
           "request": {
             "method": "POST",
             "header": [
@@ -2830,67 +2227,19 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/public/task/abc123/respond",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "task",
-                "abc123",
-                "respond"
-              ]
+              "raw": "{{baseUrl}}/api/leave-requests/{{leaveRequestId}}/tasks",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-requests", "{{leaveRequestId}}", "tasks"]
             },
-            "description": "Respond to public task",
+            "description": "Create tasks for leave request",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"status\": \"accepted\",\n  \"comments\": \"I will handle this task\"\n}"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "25. Task Management",
-      "item": [
-        {
-          "name": "Update Task Status",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/tasks/{{taskId}}/status",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "tasks",
-                "{{taskId}}",
-                "status"
-              ]
-            },
-            "description": "Update task status",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"status\": \"done\",\n  \"completionFeedback\": \"Task completed successfully\"\n}"
+              "raw": "{\n  \"tasks\": [\n    {\n      \"assigneeName\": \"John Doe\",\n      \"assigneeUserId\": \"12081\",\n      \"assigneeEmail\": \"john@company.com\",\n      \"taskDescription\": \"Handle client meetings\",\n      \"expectedSupportDateFrom\": \"2025-02-01\",\n      \"expectedSupportDateTo\": \"2025-02-03\",\n      \"additionalNotes\": \"Key client presentation on Monday\"\n    }\n  ]\n}"
             }
           }
         },
         {
-          "name": "Get Tasks Assigned to Me",
+          "name": "Get Tasks Assigned To Me",
           "request": {
             "method": "GET",
             "header": [
@@ -2902,21 +2251,14 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/tasks/assigned-to-me/{{userId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "tasks",
-                "assigned-to-me",
-                "{{userId}}"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tasks", "assigned-to-me", "{{userId}}"]
             },
-            "description": "Get tasks assigned to user"
+            "description": "Get tasks assigned to current user"
           }
         },
         {
-          "name": "Get Tasks Assigned by Me",
+          "name": "Get Tasks Assigned By Me",
           "request": {
             "method": "GET",
             "header": [
@@ -2928,17 +2270,10 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/tasks/assigned-by-me/{{userId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "tasks",
-                "assigned-by-me",
-                "{{userId}}"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tasks", "assigned-by-me", "{{userId}}"]
             },
-            "description": "Get tasks assigned by user"
+            "description": "Get tasks assigned by current user"
           }
         },
         {
@@ -2950,21 +2285,23 @@
                 "key": "X-Org-Id",
                 "value": "{{orgId}}",
                 "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
               }
             ],
             "url": {
               "raw": "{{baseUrl}}/api/tasks/{{taskId}}/accept",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "tasks",
-                "{{taskId}}",
-                "accept"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tasks", "{{taskId}}", "accept"]
             },
-            "description": "Accept task"
+            "description": "Accept assigned task",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"acceptanceResponse\": \"Task accepted, will handle all client meetings\"\n}"
+            }
           }
         },
         {
@@ -2985,20 +2322,13 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/tasks/{{taskId}}/reject",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "tasks",
-                "{{taskId}}",
-                "reject"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tasks", "{{taskId}}", "reject"]
             },
-            "description": "Reject task",
+            "description": "Reject assigned task",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"rejectionReason\": \"Cannot accommodate\"\n}"
+              "raw": "{\n  \"statusComments\": \"Unable to handle due to conflicting schedule\"\n}"
             }
           }
         },
@@ -3020,33 +2350,39 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/tasks/{{taskId}}/complete",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "tasks",
-                "{{taskId}}",
-                "complete"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tasks", "{{taskId}}", "complete"]
             },
-            "description": "Complete task",
+            "description": "Mark task as completed",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"completionFeedback\": \"Completed successfully\"\n}"
+              "raw": "{\n  \"status\": \"done\",\n  \"statusComments\": \"All client meetings handled successfully\"\n}"
             }
+          }
+        }
+      ]
+    },
+    {
+      "name": "19. Public Task Endpoints",
+      "item": [
+        {
+          "name": "Get Public Task",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/public/task/{{taskToken}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "task", "{{taskToken}}"]
+            },
+            "description": "Get public task by token (no auth required)"
           }
         },
         {
-          "name": "Update Task Status by Link",
+          "name": "Respond to Public Task",
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              },
               {
                 "key": "Content-Type",
                 "value": "application/json",
@@ -3054,55 +2390,22 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/tasks/task123/status",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "tasks",
-                "task123",
-                "status"
-              ]
+              "raw": "{{baseUrl}}/api/public/task/{{taskToken}}/respond",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "task", "{{taskToken}}", "respond"]
             },
-            "description": "Update task status by unique link",
+            "description": "Respond to public task (no auth required)",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"status\": \"accepted\"\n}"
+              "raw": "{\n  \"action\": \"accept\",\n  \"comment\": \"Task accepted via public link\"\n}"
             }
           }
         }
       ]
     },
     {
-      "name": "26. Closure Reports",
+      "name": "20. Closure Reports",
       "item": [
-        {
-          "name": "Get Closure Report",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/leave-requests/{{leaveRequestId}}/closure-report",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-requests",
-                "{{leaveRequestId}}",
-                "closure-report"
-              ]
-            },
-            "description": "Get closure report for leave request"
-          }
-        },
         {
           "name": "Create Closure Report",
           "request": {
@@ -3121,20 +2424,13 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/leave-requests/{{leaveRequestId}}/closure-report",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "leave-requests",
-                "{{leaveRequestId}}",
-                "closure-report"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leave-requests", "{{leaveRequestId}}", "closure-report"]
             },
-            "description": "Create closure report",
+            "description": "Create leave closure report",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"summary\": \"All tasks completed successfully\",\n  \"issues\": \"No issues\",\n  \"recommendations\": \"None\"\n}"
+              "raw": "{\n  \"employeeComments\": \"Leave was productive and rejuvenating\",\n  \"overallLeaveComments\": \"All tasks were handled well by colleagues\"\n}"
             }
           }
         },
@@ -3156,30 +2452,42 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/closure-reports/1/review",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "closure-reports",
-                "1",
-                "review"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "closure-reports", "1", "review"]
             },
-            "description": "Review closure report",
+            "description": "Manager review of closure report",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"approved\": true,\n  \"reviewComments\": \"Report looks good\"\n}"
+              "raw": "{\n  \"managerRating\": 5,\n  \"managerComments\": \"Excellent handover and task completion\"\n}"
             }
           }
         }
       ]
     },
     {
-      "name": "27. Additional Operations",
+      "name": "21. Debug & Testing Endpoints",
       "item": [
         {
-          "name": "Sync Pending Deductions",
+          "name": "Debug Create RH Balance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/debug-create-rh-balance",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "debug-create-rh-balance"]
+            },
+            "description": "Debug endpoint to manually create RH balance"
+          }
+        },
+        {
+          "name": "Force After Earning Transaction",
           "request": {
             "method": "POST",
             "header": [
@@ -3195,48 +2503,19 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/sync-pending-deductions",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "sync-pending-deductions"
-              ]
+              "raw": "{{baseUrl}}/api/force-after-earning-transaction",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "force-after-earning-transaction"]
             },
-            "description": "Sync pending deductions for balance calculations",
+            "description": "Force create After Earning transaction",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"userId\": \"{{userId}}\"\n}"
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"leaveVariantId\": 57\n}"
             }
           }
         },
         {
-          "name": "Auto Prorata Calculation",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "X-Org-Id",
-                "value": "{{orgId}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/auto-prorata-calculation",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auto-prorata-calculation"
-              ]
-            },
-            "description": "Auto calculate pro-rata for mid-year joiners"
-          }
-        },
-        {
-          "name": "Get Work Patterns",
+          "name": "Debug External Database",
           "request": {
             "method": "GET",
             "header": [
@@ -3247,16 +2526,250 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/work-patterns",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "work-patterns"
+              "raw": "{{baseUrl}}/api/debug-external-db/{{orgId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "debug-external-db", "{{orgId}}"]
+            },
+            "description": "Debug external database consistency"
+          }
+        }
+      ]
+    },
+    {
+      "name": "22. Template Downloads",
+      "item": [
+        {
+          "name": "Download Balance Template",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/download-balance-template",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "download-balance-template"]
+            },
+            "description": "Download leave balance import template"
+          }
+        },
+        {
+          "name": "Download Transaction Template",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/download-transaction-template",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "download-transaction-template"]
+            },
+            "description": "Download leave transaction import template"
+          }
+        }
+      ]
+    },
+    {
+      "name": "23. Bulk Operations",
+      "item": [
+        {
+          "name": "Bulk Sync Pending Deductions",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bulk-sync-pending-deductions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bulk-sync-pending-deductions"]
+            },
+            "description": "Bulk sync pending leave deductions"
+          }
+        }
+      ]
+    },
+    {
+      "name": "24. Calendar & Dashboard",
+      "item": [
+        {
+          "name": "Get Dashboard Data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dashboard"]
+            },
+            "description": "Get dashboard data"
+          }
+        },
+        {
+          "name": "Get Calendar Events",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/calendar-events?year=2025&month=2",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "calendar-events"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2025"
+                },
+                {
+                  "key": "month",
+                  "value": "2"
+                }
               ]
             },
-            "description": "Get work patterns configuration"
+            "description": "Get calendar events for specific month"
+          }
+        }
+      ]
+    },
+    {
+      "name": "25. Reports & Analytics",
+      "item": [
+        {
+          "name": "Get Leave Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/leave?year=2025",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "reports", "leave"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2025"
+                }
+              ]
+            },
+            "description": "Get leave reports for specific year"
+          }
+        },
+        {
+          "name": "Get Team Analytics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/analytics/team",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analytics", "team"]
+            },
+            "description": "Get team analytics"
+          }
+        }
+      ]
+    },
+    {
+      "name": "26. External API Integration",
+      "item": [
+        {
+          "name": "Test External Employee API",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/test-external-employee-api",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "test-external-employee-api"]
+            },
+            "description": "Test external employee API integration",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "27. System Management",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "health"]
+            },
+            "description": "System health check"
+          }
+        },
+        {
+          "name": "Get System Status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Org-Id",
+                "value": "{{orgId}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/system/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "system", "status"]
+            },
+            "description": "Get system status information"
           }
         }
       ]

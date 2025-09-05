@@ -104,6 +104,13 @@ const defaultLeaveTypes = [
     color: "#6b7280",
     variants: "",
     isDefault: true
+  },
+  {
+    name: "Sick leave and Casual Leave",
+    icon: "stethoscope",
+    color: "#22c55e",
+    variants: "",
+    isDefault: true
   }
 ];
 

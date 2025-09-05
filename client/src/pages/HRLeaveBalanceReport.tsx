@@ -230,9 +230,8 @@ export default function HRLeaveBalanceReport() {
     const userTransactions = allTransactions.filter((transaction: any) => transaction.userId === userId);
 
     // CRITICAL FIX: Group by LEAVE TYPE instead of variants to prevent duplicates
-    // Use combination of assigned variants AND balance variants to ensure complete coverage
-    const balanceVariantIds = userBalances.map((balance: any) => balance.leaveVariantId);
-    const relevantVariantIds = [...new Set([...assignedVariantIds, ...balanceVariantIds])];
+    // FIXED: Only show properly assigned leave types, not orphaned Excel imports
+    const relevantVariantIds = [...new Set(assignedVariantIds)];
     
 
     
@@ -273,7 +272,6 @@ export default function HRLeaveBalanceReport() {
     if (userId === '225') {
       console.log(`[HR Report DUPLICATE FIX] User ${userId}:`, {
         assignedVariantIds,
-        balanceVariantIds,
         relevantVariantIds,
         leaveTypeGroups: Array.from(leaveTypeGroups.entries()).map(([ltId, group]) => ({
           leaveTypeId: ltId,
@@ -721,10 +719,10 @@ export default function HRLeaveBalanceReport() {
     const csvContent = [
       headers.join(","),
       ...filteredData.map((row: any) => [
-        row.employeeNo, row.employeeName, row.location, row.department,
+        `="` + row.employeeNo + `"`, row.employeeName, row.location, row.department,
         row.leaveType, row.opBalance, row.eligibility, row.totalEligibility,
         row.availed, row.leaveLapsed, row.leaveEncashed, row.closingBalance
-      ].map(cell => `"${cell}"`).join(","))
+      ].map((cell, index) => index === 0 ? cell : `"${cell}"`).join(","))
     ].join("\n");
 
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });

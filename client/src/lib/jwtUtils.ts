@@ -50,9 +50,8 @@ export async function storeUserDataFromToken(payload: JWTPayload, token: string)
   // Use OrgContext to store JWT data consistently
   const { OrgContext } = await import('./orgContext');
   
-  // Check if user_id was manually set in localStorage - if so, preserve it
-  const existingUserId = localStorage.getItem('user_id');
-  const userIdToStore = existingUserId || payload.user_id;
+  // Always use user_id from JWT token as authoritative source
+  const userIdToStore = payload.user_id;
   
   console.log('=== JWT STORAGE DEBUG ===');
   console.log('JWT payload user_id:', payload.user_id);

@@ -37,11 +37,8 @@ export const hasUserId = (): boolean => {
 
 // Initialize with defaults only if user_id doesn't exist (preserve manual changes)
 export const initializeUserId = (): void => {
-  // Only set default if no user_id exists - preserve manual localStorage changes
-  if (!localStorage.getItem('user_id')) {
-    setUserId('14674');
-    console.log('🔄 No user_id found, set default to 14674');
-  }
+  // Do not set default user_id - let JWT token be authoritative source
+  console.log('🔄 Skipping default user_id - will be set by JWT token');
   
   // Ensure all required localStorage values are set (only if missing)
   if (!localStorage.getItem('org_id')) {
